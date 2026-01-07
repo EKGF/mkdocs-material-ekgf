@@ -132,7 +132,7 @@ Test the theme with a sample MkDocs site:
 
 ```bash
 cd examples/sample-site
-mkdocs serve
+uv run mkdocs serve
 ```
 
 ## License

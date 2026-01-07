@@ -65,7 +65,7 @@ The plugin automatically:
 
 ```bash
 cd /path/to/your/mkdocs/site
-mkdocs serve
+uv run mkdocs serve
 ```
 
 Open <http://127.0.0.1:8000> and verify:
@@ -81,7 +81,7 @@ Open <http://127.0.0.1:8000> and verify:
 ## Step 4: Build for Production
 
 ```bash
-mkdocs build
+uv run mkdocs build
 ```
 
 The site will be generated in the `site/` directory.

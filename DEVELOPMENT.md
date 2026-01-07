@@ -232,7 +232,7 @@ plugins:
 
 ```bash
 cd /path/to/test/site
-mkdocs serve
+uv run mkdocs serve
 ```
 
 ### Test with EKGF Sites
@@ -243,12 +243,12 @@ Test with actual EKGF documentation sites:
 # Test with ekg-principles
 cd ~/Work/ekg-principles
 # Update mkdocs.yml to use the package
-mkdocs serve
+uv run mkdocs serve
 
 # Test with ekg-method
 cd ~/Work/ekg-method
 # Update mkdocs.yml to use the package
-mkdocs serve
+uv run mkdocs serve
 ```
 
 ## GitHub Actions

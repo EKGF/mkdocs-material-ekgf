@@ -274,7 +274,7 @@ Or in tables:
 1. Serve Locally:
 
 ```bash
-mkdocs serve
+uv run mkdocs serve
 ```
 
 1. Check the Following:
@@ -290,7 +290,7 @@ mkdocs serve
 1. Build for Production:
 
 ```bash
-mkdocs build
+uv run mkdocs build
 ```
 
 ## Troubleshooting
