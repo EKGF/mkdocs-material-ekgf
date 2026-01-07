@@ -137,11 +137,11 @@ mkdocs serve
 
 ## License
 
-Copyright © 2026 EDMCouncil Inc., d/b/a Enterprise Data Management
-Association ("EDMA")
+```text
+Copyright © 2026 EDMCouncil Inc., d/b/a Enterprise Data Management Association ("EDMA")
 
-This work is licensed under a Creative Commons Attribution-ShareAlike
-4.0 International License.
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+```
 
 ## Support
 
