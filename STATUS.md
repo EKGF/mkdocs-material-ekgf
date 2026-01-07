@@ -32,6 +32,7 @@ setup.
 - [x] **Prettier**: Markdown formatting (70 char line length)
 - [x] **Markdownlint**: Markdown linting
 - [x] **EditorConfig**: Consistent editor settings
+- [x] **Devcontainer**: Pre-configured GitHub Codespaces setup
 
 ### ✅ Documentation
 

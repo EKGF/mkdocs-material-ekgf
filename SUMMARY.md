@@ -120,6 +120,7 @@ From [ekg-principles](../ekg-principles/):
 - ✅ **Prettier**: Markdown formatting (70 char line length)
 - ✅ **Markdownlint**: Markdown linting
 - ✅ **EditorConfig**: Consistent editor settings
+- ✅ **Devcontainer**: Pre-configured GitHub Codespaces setup
 - ✅ **GitHub Actions**: CI and automated PyPI publishing
 - ✅ **Makefile**: GNU Makefile (`gmake` recommended on macOS/Linux)
 
