@@ -68,14 +68,19 @@ build: venv-ensure clean
 .PHONY: bump
 bump:
 	@echo "Bumping patch version..."
-	@$(UV) run python3 -c "import re; \
+	@NEW_V=$$( $(UV) run python3 -c "import re; \
 	path = 'mkdocs_material_ekgf/__init__.py'; \
 	content = open(path).read(); \
 	v = re.search(r'__version__ = \"(\d+\.\d+\.)(\d+)\"', content); \
 	new_v = v.group(1) + str(int(v.group(2)) + 1); \
 	new_content = re.sub(r'__version__ = \".*?\"', f'__version__ = \"{new_v}\"', content); \
 	open(path, 'w').write(new_content); \
-	print(f'Bumped version to {new_v}')"
+	print(new_v)" ); \
+	echo "Bumped version to $$NEW_V"; \
+	git add mkdocs_material_ekgf/__init__.py; \
+	git commit -m "build: bump version to $$NEW_V"; \
+	git tag -s "v$$NEW_V" -m "Release v$$NEW_V"
+	@echo "Version bumped and tagged locally. Run 'git push origin main --tags' to publish."
 
 .PHONY: publish-test
 publish-test: build
