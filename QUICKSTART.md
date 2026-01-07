@@ -4,17 +4,17 @@ Get the EKGF theme running in your MkDocs site in under 5 minutes.
 
 ## Step 1: Install the Package
 
-### Local Development Install
+### Local Development Install (from your site's directory)
+
+If you have the theme repo locally and want to use it in your site:
 
 ```bash
-cd ~/Work/mkdocs-material-ekgf
-uv sync
+uv add --path ~/Work/mkdocs-material-ekgf mkdocs-material-ekgf
 ```
 
-This installs the package in "editable" mode, meaning changes to the
-theme files will be reflected immediately.
+This adds it as a local dependency in your site's `pyproject.toml`.
 
-### From Git Repository (Future)
+### From Git Repository (from your site's directory)
 
 ```bash
 uv add git+https://github.com/EKGF/mkdocs-material-ekgf.git
@@ -95,7 +95,7 @@ The site will be generated in the `site/` directory.
 **Solution**:
 
 1. Verify package is installed: `uv pip list | grep mkdocs-material-ekgf`
-2. Check the `custom_dir` path is correct
+2. The `material-ekgf` plugin is in your `mkdocs.yml`
 3. Ensure Material for MkDocs is installed: `uv pip list | grep mkdocs-material`
 
 ### CSS Not Applied
