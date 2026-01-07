@@ -1,0 +1,12 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include INTEGRATION.md
+include QUICKSTART.md
+include SUMMARY.md
+recursive-include mkdocs_material_ekgf *.html
+recursive-include mkdocs_material_ekgf *.css
+recursive-include mkdocs_material_ekgf *.js
+recursive-include mkdocs_material_ekgf/assets *
+recursive-include mkdocs_material_ekgf/partials *.html
+global-exclude *.py[cod] __pycache__ *.so

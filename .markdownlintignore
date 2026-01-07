@@ -1,0 +1,7 @@
+LICENSE
+node_modules/
+.husky/
+site/
+build/
+dist/
+*.egg-info/

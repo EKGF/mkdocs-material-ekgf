@@ -1,0 +1,21 @@
+inherit: material
+
+# Navigation
+features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.top
+  - navigation.tracking
+  - navigation.indexes
+  - toc.follow
+  - toc.integrate
+  - search.highlight
+  - content.code.annotate
+
+# Assets
+extra_css:
+  - assets/stylesheets/ekgf-theme.css
+
+extra_javascript:
+  - assets/javascripts/images_dark.js
+  - assets/javascripts/refresh_on_toggle_dark_light.js
