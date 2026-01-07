@@ -65,7 +65,7 @@ UV will automatically use the Python version specified in
 
 ```bash
 # Install package in editable mode with dev dependencies
-uv sync.[dev]"
+uv sync --all-extras
 ```
 
 ### 5. Install Node.js Dependencies
@@ -415,7 +415,7 @@ source ~/.bashrc  # or ~/.zshrc
 **Solution**: Reinstall dev dependencies:
 
 ```bash
-uv sync.[dev]"
+uv sync --all-extras
 ```
 
 ### Husky Issues
