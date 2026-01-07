@@ -1,12 +1,16 @@
-{#- Custom header override with grid layout: Row 1: EKGF logo |
-centered website title | OMG logo Controls are hidden and moved to the
-tabs row via JS in main.html -#} {% set class = "md-header" %} {% if
-"navigation.tabs.sticky" in features %} {% set class = class ~ "
-md-header--shadow md-header--lifted" %} {% elif "navigation.tabs" not
-in features %} {% set class = class ~ " md-header--shadow" %} {% endif
-%}
+{#-
+  Custom header override with grid layout:
+  Row 1: EKGF logo | centered website title | OMG logo
+  Controls are hidden and moved to the tabs row via JS in main.html
+-#}
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
 <header class="{{ class }}" data-md-component="header">
-  <div class="md-header__inner md-grid">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
     <div class="md-header__row md-header__row--top">
       {# Column 1: EKGF logo #}
       <div class="md-header__col md-header__col--logo">
@@ -21,24 +25,20 @@ in features %} {% set class = class ~ " md-header--shadow" %} {% endif
 
       {# Column 2: Centered website title #}
       <div class="md-header__col md-header__col--title">
-        <div
-          class="md-header__title"
-          data-md-component="header-title"
-        >
+        <div class="md-header__title" data-md-component="header-title">
           <div class="md-header__ellipsis">
             <div class="md-header__topic">
               <span class="md-ellipsis">
                 {{ config.site_name }}
               </span>
             </div>
-            <div
-              class="md-header__topic"
-              data-md-component="header-topic"
-            >
+            <div class="md-header__topic" data-md-component="header-topic">
               <span class="md-ellipsis">
-                {% if page.meta and page.meta.title %} {{
-                page.meta.title }} {% else %} {{ page.title }} {%
-                endif %}
+                {% if page.meta and page.meta.title %}
+                  {{ page.meta.title }}
+                {% else %}
+                  {{ page.title }}
+                {% endif %}
               </span>
             </div>
           </div>
@@ -51,31 +51,36 @@ in features %} {% set class = class ~ " md-header--shadow" %} {% endif
       </div>
     </div>
 
+    {# Standard Material search components, kept for JS functionality but hidden visually #}
+    {% if "material/search" in config.plugins %}
+      {% set search = config.plugins["material/search"] | attr("config") %}
+      {% if search.enabled %}
+        <div class="ekgf-hidden-search-trigger">
+          <label class="md-header__button md-icon" for="__search">
+            {% set icon = config.theme.icon.search or "material/magnify" %}
+            {% include ".icons/" ~ icon ~ ".svg" %}
+          </label>
+          {% include "partials/search.html" %}
+        </div>
+      {% endif %}
+    {% endif %}
+
     {# Components for JS to relocate to footer #}
     <div class="ekgf-header-hidden-components">
-      {% include "partials/javascripts/palette.html" %} {% if
-      config.extra.alternate %} {% include "partials/alternate.html"
-      %} {% endif %} {% if config.repo_url %}
-      <div class="md-header__source">
-        {% include "partials/source.html" %}
-      </div>
+      {% if config.repo_url %}
+        <div class="md-header__source">
+          {% include "partials/source.html" %}
+        </div>
+      {% endif %}
+      {% if config.extra.alternate %}
+        {% include "partials/alternate.html" %}
       {% endif %}
     </div>
+  </nav>
 
-    {# Standard Material search components, kept for JS functionality
-    but hidden visually #} {% if "material/search" in config.plugins
-    %} {% set search = config.plugins["material/search"] |
-    attr("config") %} {% if search.enabled %}
-    <div class="ekgf-hidden-search-trigger">
-      <label class="md-header__button md-icon" for="__search">
-        {% set icon = config.theme.icon.search or "material/magnify"
-        %} {% include ".icons/" ~ icon ~ ".svg" %}
-      </label>
-      {% include "partials/search.html" %}
-    </div>
-    {% endif %} {% endif %}
-  </div>
-  {% if "navigation.tabs.sticky" in features %} {% if
-  "navigation.tabs" in features %} {% include "partials/tabs.html" %}
-  {% endif %} {% endif %}
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
 </header>

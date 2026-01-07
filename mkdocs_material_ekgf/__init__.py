@@ -23,14 +23,11 @@ class MaterialEkgfPlugin(BasePlugin):
         # 1. Automatically set custom_dir
         theme = config.get("theme")
         if theme:
-            # We can't set custom_dir directly, but we can prepend to the search path
+            print(f"EKGF Theme: Prepending {base_path} to theme.dirs")
             if base_path not in theme.dirs:
                 theme.dirs.insert(0, base_path)
 
         # 2. Add our assets to extra_css and extra_javascript
-        # Note: These paths must be relative to the docs_dir or site_dir
-        # MkDocs will look for them in the theme's directory since we set custom_dir
-
         if "assets/stylesheets/ekgf-theme.css" not in config.get("extra_css", []):
             config["extra_css"].append("assets/stylesheets/ekgf-theme.css")
 
