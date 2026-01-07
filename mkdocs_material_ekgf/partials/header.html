@@ -53,14 +53,13 @@
 
     {# Components for JS to relocate to footer #}
     <div class="ekgf-header-hidden-components">
-      {% include "partials/javascripts/palette.html" %}
-      {% if config.extra.alternate %}
-        {% include "partials/alternate.html" %}
-      {% endif %}
       {% if config.repo_url %}
         <div class="md-header__source">
           {% include "partials/source.html" %}
         </div>
+      {% endif %}
+      {% if config.extra.alternate %}
+        {% include "partials/alternate.html" %}
       {% endif %}
     </div>
 

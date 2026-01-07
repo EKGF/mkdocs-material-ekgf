@@ -73,13 +73,6 @@
       // Ensure cookie exists even if user never toggles
       syncCookieFromPalette();
 
-      var ref = document.querySelector("[data-md-component=palette]");
-      if (ref) {
-        ref.addEventListener("change", function () {
-          syncCookieFromPalette();
-        });
-      }
-
       // Theme toggle is now directly included in tabs.html, no JS relocation needed
 
       // Sync tabs search input with Material's search system
