@@ -40,7 +40,6 @@ setup.
 - [x] INTEGRATION.md - Comprehensive integration guide
 - [x] DEVELOPMENT.md - Development workflow and tooling
 - [x] SUMMARY.md - Project overview
-- [x] CHANGELOG.md - Version history
 - [x] STATUS.md - This file
 
 ### ✅ Git Repository
@@ -52,12 +51,12 @@ setup.
 
 ## File Count
 
-- **Total Files**: 33
+- **Total Files**: 32
 - **Python Files**: 1 (`__init__.py`)
 - **HTML Templates**: 10 (main + 9 partials)
 - **CSS**: 1 file (1,658 lines)
 - **JavaScript**: 2 files
-- **Documentation**: 7 markdown files
+- **Documentation**: 6 markdown files
 - **Configuration**: 12 files
 
 ## Git History

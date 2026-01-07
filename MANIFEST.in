@@ -1,6 +1,5 @@
 include README.md
 include LICENSE
-include CHANGELOG.md
 include INTEGRATION.md
 include QUICKSTART.md
 include SUMMARY.md

@@ -20,8 +20,7 @@ mkdocs-material-ekgf/
 ├── 📄 INTEGRATION.md         # Detailed integration guide
 ├── 📄 DEVELOPMENT.md         # Developer guide & tooling
 ├── 📄 STATUS.md              # Current project status
-├── 📄 CHANGELOG.md           # Version history
-├── 📄 LICENSE                # MIT License
+├── 📄 LICENSE                # CC BY-SA 4.0 License
 ├── 📄 Makefile               # Unified command interface
 ├── 📄 pyproject.toml         # Hatchling & uv configuration
 ├── 📄 .gitignore             # Git ignore rules
@@ -55,7 +54,7 @@ mkdocs-material-ekgf/
 - ✅ Initialized with proper structure
 - ✅ Correctly signed commits (Jacobus Geluk)
 - ✅ Modern branch structure (`main`)
-- 📊 34 files, 5,214 lines of code
+- 📊 32 files, 5,214 lines of code
 
 ### Design Features Extracted
 
@@ -190,7 +189,7 @@ and injects all necessary assets.
 - **Created**: January 6, 2026
 - **Author**: Jacobus Geluk <jacobus.geluk@ekgf.org>
 - **Organization**: EKGF (Enterprise Knowledge Graph Forum)
-- **License**: MIT
+- **License**: CC BY-SA 4.0
 
 ---
 

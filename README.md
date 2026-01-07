@@ -140,7 +140,8 @@ mkdocs serve
 Copyright © 2026 EDMCouncil Inc., d/b/a Enterprise Data Management
 Association ("EDMA")
 
-This project is licensed under [specify license].
+This work is licensed under a Creative Commons Attribution-ShareAlike
+4.0 International License.
 
 ## Support
 
