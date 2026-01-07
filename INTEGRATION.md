@@ -21,7 +21,7 @@ uv add mkdocs-material-ekgf
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-uv pip install -e .
+uv sync
 ```
 
 ### From Git Repository

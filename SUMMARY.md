@@ -130,7 +130,7 @@ From [ekg-principles](../ekg-principles/):
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-uv pip install -e .
+uv sync
 ```
 
 ### Method 2: From Git Repository (For Team)

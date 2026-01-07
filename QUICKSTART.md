@@ -8,7 +8,7 @@ Get the EKGF theme running in your MkDocs site in under 5 minutes.
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-uv pip install -e .
+uv sync
 ```
 
 This installs the package in "editable" mode, meaning changes to the

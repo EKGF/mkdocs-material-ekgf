@@ -114,7 +114,7 @@ pnpm install
 pnpm prepare
 
 # Install Python package with dev dependencies
-uv pip install -e ".[dev]"
+uv sync.[dev]"
 ```
 
 ### 2. Test Installation

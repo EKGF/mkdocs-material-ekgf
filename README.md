@@ -123,7 +123,7 @@ This theme implements the EKGF design language:
 ```bash
 git clone https://github.com/EKGF/mkdocs-material-ekgf.git
 cd mkdocs-material-ekgf
-uv pip install -e .
+uv sync
 ```
 
 ### Testing
