@@ -6,11 +6,11 @@ file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2026-01-06
+## [0.0.1] - 2026-01-07
 
 ### Added
 
-- Initial release of mkdocs-material-ekgf theme
+- Initial release of mkdocs-material-ekgf theme (Alpha)
 - Custom three-row header layout with EKGF logo, site title, and OMG
   branding
 - Enhanced footer matching ekgf.org design
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive design optimizations for mobile, tablet, and desktop
 - Complete CSS theming based on ekg-principles design
 - JavaScript utilities for dark mode and search integration
+- MkDocs plugin for automatic theme configuration
 
 ### Design Elements
 
@@ -42,13 +43,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integration guide for existing EKGF sites
 - Card layout examples and documentation
 - Troubleshooting section
+- Development guide with uv and make instructions
 
 ### Technical
 
-- Python package structure with setup.py and pyproject.toml
-- Support for Python 3.8+
-- Compatible with MkDocs 1.5.0+ and Material for MkDocs 9.0.0+
-- Package data includes all HTML templates, CSS, and JavaScript
+- Python package structure with hatchling and uv
+- Modern tooling: ruff, husky, commitlint, prettier, markdownlint
+- GitHub Actions for CI and PyPI publishing
 - MIT License
 
 ## [Unreleased]
@@ -66,4 +67,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[1.0.0]: https://github.com/EKGF/mkdocs-material-ekgf/releases/tag/v1.0.0
+[0.0.1]: https://github.com/EKGF/mkdocs-material-ekgf/releases/tag/v0.0.1
