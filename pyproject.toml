@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mkdocs-material-ekgf"
-version = "0.0.1"
+version = "0.0.2"
 description = "A custom Material for MkDocs theme for EKGF documentation websites"
 authors = [
   {name = "Jacobus Geluk", email = "jacobus.geluk@ekgf.org"},
@@ -47,9 +47,6 @@ material-ekgf = "mkdocs_material_ekgf:MaterialEkgfPlugin"
 
 [tool.hatch.build.targets.wheel]
 packages = ["mkdocs_material_ekgf"]
-
-[tool.hatch.build.targets.wheel.force-include]
-"mkdocs_material_ekgf" = "mkdocs_material_ekgf"
 
 [tool.ruff]
 line-length = 100
