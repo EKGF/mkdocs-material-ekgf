@@ -12,7 +12,22 @@ mkdocs-material-ekgf.
 
 ## Initial Setup
 
-### 1. Install UV
+### GitHub Codespaces (Recommended)
+
+The easiest way to get started is to open this repository in a GitHub
+Codespace. It comes pre-configured with all necessary tools (uv,
+pnpm, make, etc.).
+
+1. Click the **Code** button on the GitHub repository.
+2. Select the **Codespaces** tab.
+3. Click **Create codespace on main**.
+
+Wait for the setup to complete, and you'll have a fully functional
+development environment.
+
+### Local Setup
+
+#### 1. Install UV
 
 UV is a fast Python package installer and resolver:
 

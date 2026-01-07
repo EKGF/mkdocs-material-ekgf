@@ -8,7 +8,8 @@ ifeq ($(OS),Windows_NT)
 	MAKE := make
 else
 	YOUR_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
-	MAKE := gmake
+	# Check if gmake exists, otherwise fall back to make
+	MAKE := $(shell command -v gmake >/dev/null 2>&1 && echo gmake || echo make)
 endif
 
 .PHONY: all
