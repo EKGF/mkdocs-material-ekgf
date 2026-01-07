@@ -61,6 +61,18 @@ build: venv-ensure clean
 	@echo "Building package..."
 	$(UV) build
 
+.PHONY: bump
+bump:
+	@echo "Bumping patch version..."
+	@$(UV) run python3 -c "import re; \
+	path = 'mkdocs_material_ekgf/__init__.py'; \
+	content = open(path).read(); \
+	v = re.search(r'__version__ = \"(\d+\.\d+\.)(\d+)\"', content); \
+	new_v = v.group(1) + str(int(v.group(2)) + 1); \
+	new_content = re.sub(r'__version__ = \".*?\"', f'__version__ = \"{new_v}\"', content); \
+	open(path, 'w').write(new_content); \
+	print(f'Bumped version to {new_v}')"
+
 .PHONY: publish-test
 publish-test: build
 	@echo "Publishing to TestPyPI..."
