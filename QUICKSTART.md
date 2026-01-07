@@ -8,7 +8,7 @@ Get the EKGF theme running in your MkDocs site in under 5 minutes.
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-pip install -e .
+uv pip install -e .
 ```
 
 This installs the package in "editable" mode, meaning changes to the
@@ -17,13 +17,13 @@ theme files will be reflected immediately.
 ### From Git Repository (Future)
 
 ```bash
-pip install git+https://github.com/EKGF/mkdocs-material-ekgf.git
+uv add git+https://github.com/EKGF/mkdocs-material-ekgf.git
 ```
 
 ### From PyPI (When Published)
 
 ```bash
-pip install mkdocs-material-ekgf
+uv add mkdocs-material-ekgf
 ```
 
 ## Step 2: Find the Theme Path
@@ -109,9 +109,9 @@ The site will be generated in the `site/` directory.
 
 **Solution**:
 
-1. Verify package is installed: `pip list | grep mkdocs-material-ekgf`
+1. Verify package is installed: `uv pip list | grep mkdocs-material-ekgf`
 2. Check the `custom_dir` path is correct
-3. Ensure Material for MkDocs is installed: `pip list | grep mkdocs-material`
+3. Ensure Material for MkDocs is installed: `uv pip list | grep mkdocs-material`
 
 ### CSS Not Applied
 
@@ -122,7 +122,7 @@ The site will be generated in the `site/` directory.
 1. Check you're using Material for MkDocs 9.0.0+:
 
 ```bash
-pip install --upgrade mkdocs-material
+uv add mkdocs-material --upgrade
 ```
 
 1. Clear your browser cache (Cmd+Shift+R on Mac, Ctrl+Shift+R on

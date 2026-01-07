@@ -23,7 +23,7 @@ Graph Forum) documentation websites.
 ## Installation
 
 ```bash
-pip install mkdocs-material-ekgf
+uv add mkdocs-material-ekgf
 ```
 
 ## Usage
@@ -123,7 +123,7 @@ This theme implements the EKGF design language:
 ```bash
 git clone https://github.com/EKGF/mkdocs-material-ekgf.git
 cd mkdocs-material-ekgf
-pip install -e .
+uv pip install -e .
 ```
 
 ### Testing

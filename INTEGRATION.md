@@ -14,20 +14,20 @@ into your EKGF documentation website.
 ### From PyPI (when published)
 
 ```bash
-pip install mkdocs-material-ekgf
+uv add mkdocs-material-ekgf
 ```
 
 ### From Local Development
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-pip install -e .
+uv pip install -e .
 ```
 
 ### From Git Repository
 
 ```bash
-pip install git+https://github.com/EKGF/mkdocs-material-ekgf.git
+uv add git+https://github.com/EKGF/mkdocs-material-ekgf.git
 ```
 
 ## Configuration
@@ -299,16 +299,16 @@ mkdocs build
 
 If the theme doesn't load, verify:
 
-1. Package is installed: `pip list | grep mkdocs-material-ekgf`
+1. Package is installed: `uv pip list | grep mkdocs-material-ekgf`
 2. The `material-ekgf` plugin is in your `mkdocs.yml`
-3. Material for MkDocs is installed: `pip list | grep mkdocs-material`
+3. Material for MkDocs is installed: `uv pip list | grep mkdocs-material`
 
 ### Styles Not Applying
 
 Check that you're using Material for MkDocs 9.0.0 or higher:
 
 ```bash
-pip install --upgrade mkdocs-material
+uv add mkdocs-material --upgrade
 ```
 
 ### Cards Not Rendering
