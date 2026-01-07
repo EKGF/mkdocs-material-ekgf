@@ -259,102 +259,79 @@ The repository includes two workflows:
    - Lints Python code with Ruff
    - Checks formatting
    - Builds the package to verify it's valid
-2. **Publish (`publish.yml`)**: Runs on every tag push starting with `v`
-   (e.g., `v1.0.0`).
-   - Builds the package
-   - Publishes to PyPI using Trusted Publishing
+2. **Release and Publish (`publish.yml`)**: Runs on every push to
+   `main`.
+   - Detects if the version in `__init__.py` has changed.
+   - If changed, it creates a GitHub Tag and Release.
+   - Automatically publishes the package to PyPI.
 
-## Publishing to PyPI
+## Automatic Publishing (Recommended)
 
-### Manual Publishing (with twine)
+This project uses an automated release workflow. Tags are only created
+by CI once a PR is merged into `main`.
 
-1. Build the package:
+1. Run the bump command on your branch:
+
+```bash
+gmake bump
+```
+
+1. This will commit the version change and push your current branch.
+2. Open a Pull Request to `main`.
+3. Once merged, GitHub Actions will:
+   - Build the package and verify the version.
+   - If the version is new, it will create a GitHub Tag and Release.
+   - It will automatically publish the package to PyPI.
+
+## Building the Package Manually
+
+### Build Wheel and Source Distribution
+
+```bash
+# Build package using Makefile
+gmake build
+```
+
+This creates files in `dist/`:
+
+- `mkdocs_material_ekgf-X.Y.Z-py3-none-any.whl`
+- `mkdocs_material_ekgf-X.Y.Z.tar.gz`
+
+### Install from Local Build
+
+```bash
+uv pip install dist/mkdocs_material_ekgf-X.Y.Z-py3-none-any.whl
+```
+
+## Manual Publishing
+
+### Publish to PyPI (when ready)
+
+1. Build package:
 
 ```bash
 gmake build
 ```
 
-1. Upload to PyPI:
-
-```bash
-gmake publish
-```
-
-### Automatic Publishing (Recommended)
-
-1. Update the version in `mkdocs_material_ekgf/__init__.py`.
-2. Commit and push the changes.
-3. Create and push a tag:
-
-```bash
-git tag v0.0.3
-git push origin v0.0.3
-```
-
-GitHub Actions will automatically build and publish the package.
-
-## Building the Package
-
-### Build Wheel and Source Distribution
-
-```bash
-# Install build tool
-uv pip install build
-
-# Build package
-python -m build
-```
-
-This creates files in `dist/`:
-
-- `mkdocs_material_ekgf-1.0.0-py3-none-any.whl`
-- `mkdocs_material_ekgf-1.0.0.tar.gz`
-
-### Install from Local Build
-
-```bash
-uv pip install dist/mkdocs_material_ekgf-1.0.0-py3-none-any.whl
-```
-
-## Publishing
-
-### Publish to PyPI (when ready)
-
-1. Install twine:
-
-```bash
-uv pip install twine
-```
-
-1. Build package:
-
-```bash
-python -m build
-```
-
 1. Upload to TestPyPI (for testing):
 
 ```bash
-twine upload --repository testpypi dist/*
-```
-
-1. Test installation from TestPyPI:
-
-```bash
-uv pip install --index-url https://test.pypi.org/simple/ mkdocs-material-ekgf
+gmake publish-test
 ```
 
 1. Upload to PyPI (production):
 
 ```bash
-twine upload dist/*
+gmake publish
 ```
 
 ## Project Structure
 
 ```text
 mkdocs-material-ekgf/
+├── .devcontainer/             # GitHub Codespaces setup
 ├── .editorconfig              # Editor configuration
+├── .github/workflows/        # GitHub Actions (CI & Publish)
 ├── .gitignore                 # Git ignore rules
 ├── .husky/                    # Git hooks
 │   ├── commit-msg             # Commit message validation
@@ -363,33 +340,37 @@ mkdocs-material-ekgf/
 ├── .markdownlintignore        # Markdown lint ignore
 ├── .prettierrc.json           # Prettier configuration
 ├── .python-version            # Python version (3.14.2)
+├── .vscode/                   # VS Code shared settings
 ├── DEVELOPMENT.md             # This file
 ├── INTEGRATION.md             # Integration guide
 ├── LICENSE                    # MIT License
 ├── MANIFEST.in                # Package manifest
 ├── QUICKSTART.md              # Quick start guide
 ├── README.md                  # Main documentation
-├── SUMMARY.md                 # Project summary
+├── STATUS.md                  # Current project status
+├── SUMMARY.md                 # Project overview
 ├── Makefile                   # GNU Makefile
 ├── commitlint.config.js       # Commitlint configuration
-├── mkdocs_material_ekgf/      # Theme package
-│   ├── __init__.py
-│   ├── main.html
-│   ├── assets/
-│   │   ├── javascripts/
-│   │   └── stylesheets/
-│   └── partials/
+├── mkdocs_material_ekgf/      # Theme package & Plugin
+│   ├── __init__.py           # Plugin implementation
+│   ├── main.html             # Base template overrides
+│   ├── mkdocs_theme.yml      # Theme metadata
+│   ├── assets/               # CSS and JS
+│   └── partials/             # Template fragments
 ├── package.json               # Node.js dependencies
-└── pyproject.toml             # Python project config
+├── pyproject.toml             # Hatchling & uv configuration
+└── uv.lock                    # Dependency lockfile
 ```
 
 ## Troubleshooting
 
 ### GNU Make Issues
 
-**Problem**: `make` command fails with syntax errors or version issues.
+**Problem**: `make` command fails with syntax errors or version
+issues.
 
-**Solution**: Use `gmake` on macOS and Linux. Ensure GNU Make is installed.
+**Solution**: Use `gmake` on macOS and Linux. Ensure GNU Make is
+installed.
 
 ```bash
 # macOS

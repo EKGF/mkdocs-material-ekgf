@@ -1,31 +1,57 @@
-name: Publish to PyPI
+name: Release and Publish
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
   build:
-    name: Build distribution
+    name: Build and check version
     runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.check_version.outputs.new_version }}
+      version: ${{ steps.get_version.outputs.version }}
+      tag: ${{ steps.get_version.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.14"
 
+      - name: Get version
+        id: get_version
+        run: |
+          VERSION=$(grep "__version__" mkdocs_material_ekgf/__init__.py | cut -d '"' -f 2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check_version
+        run: |
+          if git rev-parse "refs/tags/${{ steps.get_version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "new_version=false" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.get_version.outputs.tag }} already exists. Skipping release."
+          else
+            echo "new_version=true" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.get_version.outputs.tag }} is new. Proceeding with release."
+          fi
+
       - name: Install uv
+        if: steps.check_version.outputs.new_version == 'true'
         run: pip install uv
 
       - name: Build package
+        if: steps.check_version.outputs.new_version == 'true'
         run: uv build
 
       - name: Store distribution packages
+        if: steps.check_version.outputs.new_version == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: python-package-distributions
@@ -34,6 +60,7 @@ jobs:
   publish:
     name: Publish to PyPI
     needs: build
+    if: needs.build.outputs.new_version == 'true'
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -41,8 +68,10 @@ jobs:
     permissions:
       id-token: write # Mandatory for Trusted Publishing
       attestations: write # For SLSA provenance
-      contents: read
+      contents: write # For creating tag and release
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download distribution packages
         uses: actions/download-artifact@v4
         with:
@@ -51,3 +80,13 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Create GitHub Release and Tag
+        uses: softprop/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build.outputs.tag }}
+          name: Release ${{ needs.build.outputs.tag }}
+          generate_release_notes: true
+          body: |
+            Automated release for version ${{ needs.build.outputs.version }}.
+            See commit history for details.

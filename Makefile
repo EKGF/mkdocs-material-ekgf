@@ -79,8 +79,9 @@ bump:
 	echo "Bumped version to $$NEW_V"; \
 	git add mkdocs_material_ekgf/__init__.py; \
 	git commit -m "build: bump version to $$NEW_V"; \
-	git tag -s "v$$NEW_V" -m "Release v$$NEW_V"
-	@echo "Version bumped and tagged locally. Run 'git push origin main --tags' to publish."
+	CURRENT_BRANCH=$$(git branch --show-current); \
+	git push origin $$CURRENT_BRANCH
+	@echo "Version bumped and pushed to $$CURRENT_BRANCH. Merge the PR to main to trigger CI tagging and release."
 
 .PHONY: publish-test
 publish-test: build
