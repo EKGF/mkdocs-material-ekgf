@@ -13,12 +13,9 @@ class MaterialEkgfPlugin(BasePlugin):
         # Path to this package
         base_path = os.path.dirname(__file__)
 
-        print(f"DEBUG: EKGF Theme plugin starting. Base path: {base_path}")
-
         # 1. Automatically set custom_dir
         theme = config.get("theme")
         if theme:
-            print(f"DEBUG: Prepending {base_path} to theme.dirs")
             if base_path not in theme.dirs:
                 theme.dirs.insert(0, base_path)
 
@@ -27,7 +24,6 @@ class MaterialEkgfPlugin(BasePlugin):
         # MkDocs will look for them in the theme's directory since we set custom_dir
 
         if "assets/stylesheets/ekgf-theme.css" not in config.get("extra_css", []):
-            print("DEBUG: Adding ekgf-theme.css to extra_css")
             config["extra_css"].append("assets/stylesheets/ekgf-theme.css")
 
         js_assets = [
@@ -37,7 +33,6 @@ class MaterialEkgfPlugin(BasePlugin):
 
         for js in js_assets:
             if js not in config.get("extra_javascript", []):
-                print(f"DEBUG: Adding {js} to extra_javascript")
                 config["extra_javascript"].append(js)
 
         return config
