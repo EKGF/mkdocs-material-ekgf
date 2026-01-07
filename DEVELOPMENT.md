@@ -8,6 +8,7 @@ mkdocs-material-ekgf.
 - Python 3.14.2 (managed by `uv`)
 - Node.js and pnpm (for Husky, Commitlint, Prettier)
 - Git
+- **GNU Make** (`gmake` on macOS/Linux)
 
 ## Initial Setup
 
@@ -25,14 +26,24 @@ Or on macOS:
 brew install uv
 ```
 
-### 2. Clone the Repository
+### 2. Install GNU Make (if needed)
+
+On macOS:
+
+```bash
+brew install make
+```
+
+*Note: This installs GNU Make as `gmake`.*
+
+### 3. Clone the Repository
 
 ```bash
 git clone https://github.com/EKGF/mkdocs-material-ekgf.git
 cd mkdocs-material-ekgf
 ```
 
-### 3. Install Python Dependencies
+### 4. Install Python Dependencies
 
 UV will automatically use the Python version specified in
 `.python-version`:
@@ -42,7 +53,7 @@ UV will automatically use the Python version specified in
 uv pip install -e ".[dev]"
 ```
 
-### 4. Install Node.js Dependencies
+### 5. Install Node.js Dependencies
 
 ```bash
 # Install pnpm if you don't have it
@@ -52,7 +63,7 @@ npm install -g pnpm
 pnpm install
 ```
 
-### 5. Initialize Husky
+### 6. Initialize Husky
 
 Husky manages Git hooks for pre-commit checks and commit message
 linting:
@@ -97,7 +108,7 @@ markdownlint '**/*.md' --ignore node_modules --ignore .husky --ignore site
 **All linters:**
 
 ```bash
-pnpm run lint
+gmake lint
 ```
 
 ### Code Style
@@ -245,25 +256,24 @@ The repository includes two workflows:
 1. Build the package:
 
 ```bash
-make build
+gmake build
 ```
 
 1. Upload to PyPI:
 
 ```bash
-make publish
+gmake publish
 ```
 
 ### Automatic Publishing (Recommended)
 
-1. Update the version in `pyproject.toml` and
-   `mkdocs_material_ekgf/__init__.py`.
+1. Update the version in `mkdocs_material_ekgf/__init__.py`.
 2. Commit and push the changes.
 3. Create and push a tag:
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v0.0.3
+git push origin v0.0.3
 ```
 
 GitHub Actions will automatically build and publish the package.
@@ -338,7 +348,6 @@ mkdocs-material-ekgf/
 ├── .markdownlintignore        # Markdown lint ignore
 ├── .prettierrc.json           # Prettier configuration
 ├── .python-version            # Python version (3.14.2)
-├── CHANGELOG.md               # Version history
 ├── DEVELOPMENT.md             # This file
 ├── INTEGRATION.md             # Integration guide
 ├── LICENSE                    # MIT License
@@ -346,6 +355,7 @@ mkdocs-material-ekgf/
 ├── QUICKSTART.md              # Quick start guide
 ├── README.md                  # Main documentation
 ├── SUMMARY.md                 # Project summary
+├── Makefile                   # GNU Makefile
 ├── commitlint.config.js       # Commitlint configuration
 ├── mkdocs_material_ekgf/      # Theme package
 │   ├── __init__.py
@@ -359,6 +369,18 @@ mkdocs-material-ekgf/
 ```
 
 ## Troubleshooting
+
+### GNU Make Issues
+
+**Problem**: `make` command fails with syntax errors or version issues.
+
+**Solution**: Use `gmake` on macOS and Linux. Ensure GNU Make is installed.
+
+```bash
+# macOS
+brew install make
+gmake --version
+```
 
 ### UV Issues
 

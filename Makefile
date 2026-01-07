@@ -5,8 +5,10 @@ UV := uv
 # OS detection
 ifeq ($(OS),Windows_NT)
 	YOUR_OS := Windows
+	MAKE := make
 else
 	YOUR_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+	MAKE := gmake
 endif
 
 .PHONY: all
@@ -17,6 +19,7 @@ info:
 	@echo "Operating System  : ${YOUR_OS}"
 	@echo "Python version    : $(PYTHON_VERSION)"
 	@echo "uv version        : $$($(UV) --version)"
+	@echo "make version      : $$($(MAKE) --version | head -n 1)"
 
 .PHONY: clean
 clean:

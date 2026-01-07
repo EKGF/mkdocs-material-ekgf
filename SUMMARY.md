@@ -121,7 +121,7 @@ From [ekg-principles](../ekg-principles/):
 - ✅ **Markdownlint**: Markdown linting
 - ✅ **EditorConfig**: Consistent editor settings
 - ✅ **GitHub Actions**: CI and automated PyPI publishing
-- ✅ **Makefile**: Unified command interface
+- ✅ **Makefile**: GNU Makefile (`gmake` recommended on macOS/Linux)
 
 ## Installation Methods
 
