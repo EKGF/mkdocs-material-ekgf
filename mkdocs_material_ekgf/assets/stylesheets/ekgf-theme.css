@@ -77,7 +77,7 @@
   --md-code-fg-color: var(--ekgf-fg);
 
   /* Color matching OMG logo white in dark mode */
-  --omg-logo-white: #e6e8ea;
+  --omg-logo-white: #E6E8EA;
 }
 
 /* ===== EKGF chrome alignment (header) ===== */
@@ -91,16 +91,12 @@
 }
 
 [data-md-color-scheme="slate"] .md-header__col--title .md-ellipsis,
-[data-md-color-scheme="slate"]
-  .md-header__button.md-logo
-  .ekgf-logo-text {
+[data-md-color-scheme="slate"] .md-header__button.md-logo .ekgf-logo-text {
   color: var(--omg-logo-white);
   opacity: 0.85;
 }
 
-[data-md-color-scheme="slate"]
-  .md-header__button.md-logo:hover
-  .ekgf-logo-text {
+[data-md-color-scheme="slate"] .md-header__button.md-logo:hover .ekgf-logo-text {
   opacity: 1;
 }
 
@@ -371,9 +367,7 @@
   z-index: 100;
   opacity: 0;
   visibility: hidden;
-  transition:
-    opacity 0.25s,
-    visibility 0.25s;
+  transition: opacity 0.25s, visibility 0.25s;
   pointer-events: none;
 }
 
@@ -385,7 +379,7 @@
 
 .md-header .md-search__inner {
   background-color: var(--md-default-bg-color);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   border-radius: 0.5rem;
   overflow: hidden;
   max-height: 25rem;
@@ -449,9 +443,7 @@
 }
 
 /* Remove any extra spacing around the palette form inside the tabs controls */
-.md-tabs
-  .ekgf-tabs-controls
-  form.md-header__option[data-md-component="palette"] {
+.md-tabs .ekgf-tabs-controls form.md-header__option[data-md-component="palette"] {
   margin-right: 0 !important;
   padding-right: 0 !important;
 }
@@ -475,9 +467,7 @@
 
 /* Show only ONE theme toggle icon (moon in light mode, sun in dark mode) */
 /* Hide both labels by default (scoped to our tabs row placement) */
-.md-tabs
-  .ekgf-tabs-controls
-  form.md-header__option[data-md-component="palette"]
+.md-tabs .ekgf-tabs-controls form.md-header__option[data-md-component="palette"]
   > label.md-header__button {
   display: none !important;
 }
@@ -501,10 +491,7 @@ body[data-md-color-scheme="slate"]
 }
 
 /* Match theme toggle icon color to menu items */
-.md-tabs
-  .md-grid
-  .md-header__option[data-md-component="palette"]
-  .md-header__button {
+.md-tabs .md-grid .md-header__option[data-md-component="palette"] .md-header__button {
   color: var(--md-default-fg-color) !important;
   opacity: 0.8 !important;
   transition: opacity 0.2s ease;
@@ -519,36 +506,22 @@ body[data-md-color-scheme="slate"]
   border: none !important;
 }
 
-.md-tabs
-  .md-grid
-  .md-header__option[data-md-component="palette"]
-  .md-header__button:hover {
+.md-tabs .md-grid .md-header__option[data-md-component="palette"] .md-header__button:hover {
   opacity: 1 !important;
 }
 
-.md-tabs
-  .md-grid
-  .md-header__option[data-md-component="palette"]
-  .md-header__button
-  svg {
+.md-tabs .md-grid .md-header__option[data-md-component="palette"] .md-header__button svg {
   width: 1.25rem !important;
   height: 1.25rem !important;
   display: block !important;
   fill: currentColor !important;
 }
 
-.md-tabs
-  .md-grid
-  .md-header__option[data-md-component="palette"]
-  .md-header__button:hover {
+.md-tabs .md-grid .md-header__option[data-md-component="palette"] .md-header__button:hover {
   opacity: 1 !important;
 }
 
-.md-tabs
-  .md-grid
-  .md-header__option[data-md-component="palette"]
-  .md-header__button
-  svg {
+.md-tabs .md-grid .md-header__option[data-md-component="palette"] .md-header__button svg {
   width: 1.25rem !important;
   height: 1.25rem !important;
   pointer-events: none;
@@ -617,7 +590,7 @@ body[data-md-color-scheme="slate"]
   align-items: center;
   gap: 0.5rem;
   padding: 0.25rem 0; /* Remove horizontal padding to simplify alignment */
-  margin-left: 0.5rem; /* Add space from previous element instead */
+  margin-left: 0.5rem;  /* Add space from previous element instead */
   border-radius: 0.5rem;
   opacity: 0.85;
   transition: opacity 0.2s ease;
@@ -823,10 +796,7 @@ body[data-md-color-scheme="slate"]
   gap: 1.5rem !important;
   display: grid !important;
   /* Responsive grid: 1 column on mobile, 2 on tablet, 3 on desktop */
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  ) !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
   margin-left: 0 !important;
   padding-left: 0 !important;
 }
@@ -845,31 +815,23 @@ body[data-md-color-scheme="slate"]
 .md-typeset .grid.cards > ul > li:hover,
 .md-typeset .grid.cards li:hover {
   transform: translateY(-4px) scale(1.01) !important;
-  box-shadow:
+  box-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.12),
     0 4px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Light mode card hover shadow */
-[data-md-color-scheme="default"]
-  .md-typeset
-  .grid.cards
-  > ul
-  > li:hover,
+[data-md-color-scheme="default"] .md-typeset .grid.cards > ul > li:hover,
 [data-md-color-scheme="default"] .md-typeset .grid.cards li:hover {
-  box-shadow:
+  box-shadow: 
     0 8px 16px rgba(74, 35, 217, 0.15),
     0 4px 8px rgba(74, 35, 217, 0.1) !important;
 }
 
 /* Dark mode card hover shadow */
-[data-md-color-scheme="slate"]
-  .md-typeset
-  .grid.cards
-  > ul
-  > li:hover,
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li:hover,
 [data-md-color-scheme="slate"] .md-typeset .grid.cards li:hover {
-  box-shadow:
+  box-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
@@ -885,9 +847,7 @@ body[data-md-color-scheme="slate"]
 .md-typeset .grid.cards img[alt*="material-"],
 .md-typeset .grid.cards img[alt*="octicons-"],
 .md-typeset .grid.cards .md-typeset img {
-  transition:
-    transform 0.3s ease,
-    filter 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   filter: brightness(1);
 }
 
@@ -946,11 +906,7 @@ body[data-md-color-scheme="slate"]
   min-height: 4.5rem;
 }
 
-.md-typeset
-  .grid.process-cards
-  > ul
-  > li
-  > *:not(.process-card-header) {
+.md-typeset .grid.process-cards > ul > li > *:not(.process-card-header) {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
@@ -963,11 +919,7 @@ body[data-md-color-scheme="slate"]
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(48, 63, 159, 0.45),
-    rgba(25, 118, 210, 0.4)
-  );
+  background: linear-gradient(120deg, rgba(48, 63, 159, 0.45), rgba(25, 118, 210, 0.4));
   z-index: -1;
 }
 
@@ -975,11 +927,7 @@ body[data-md-color-scheme="slate"]
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(
-    circle at 80% -10%,
-    rgba(255, 255, 255, 0.15),
-    transparent 55%
-  );
+  background-image: radial-gradient(circle at 80% -10%, rgba(255, 255, 255, 0.15), transparent 55%);
   opacity: 0.35;
   pointer-events: none;
   z-index: -1;
@@ -1058,10 +1006,7 @@ body[data-md-color-scheme="slate"]
 
 /* Theme cards - 4 column layout with narrower cards */
 .md-typeset .grid.theme-cards > ul {
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ) !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
   max-width: 1400px; /* Limit total grid width to prevent too many columns */
   margin-left: 0 !important;
   padding-left: 0 !important;
@@ -1108,11 +1053,7 @@ body[data-md-color-scheme="slate"]
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(48, 63, 159, 0.15),
-    rgba(25, 118, 210, 0.1)
-  );
+  background: linear-gradient(120deg, rgba(48, 63, 159, 0.15), rgba(25, 118, 210, 0.1));
   z-index: -1;
 }
 
@@ -1120,11 +1061,7 @@ body[data-md-color-scheme="slate"]
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(
-    circle at 80% -10%,
-    rgba(255, 255, 255, 0.15),
-    transparent 55%
-  );
+  background-image: radial-gradient(circle at 80% -10%, rgba(255, 255, 255, 0.15), transparent 55%);
   opacity: 0.35;
   pointer-events: none;
   z-index: -1;
@@ -1319,11 +1256,7 @@ body[data-md-color-scheme="slate"]
   width: 3rem !important;
   height: 3rem !important;
   border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    var(--md-primary-fg-color) 0%,
-    var(--md-primary-fg-color--dark) 100%
-  );
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-primary-fg-color--dark) 100%);
   color: white;
   font-weight: 700;
   font-size: 1.5rem;
@@ -1359,15 +1292,8 @@ body[data-md-color-scheme="slate"]
 }
 
 /* Dark mode badge styling */
-[data-md-color-scheme="slate"]
-  .md-typeset
-  .grid.cards
-  .objective-badge {
-  background: linear-gradient(
-    135deg,
-    var(--md-primary-fg-color--light) 0%,
-    var(--md-primary-fg-color) 100%
-  );
+[data-md-color-scheme="slate"] .md-typeset .grid.cards .objective-badge {
+  background: linear-gradient(135deg, var(--md-primary-fg-color--light) 0%, var(--md-primary-fg-color) 100%);
   box-shadow: 0 2px 8px rgba(74, 35, 217, 0.3);
 }
 
@@ -1379,17 +1305,8 @@ body[data-md-color-scheme="slate"]
   box-shadow: 0 4px 12px rgba(74, 35, 217, 0.4);
 }
 
-[data-md-color-scheme="slate"]
-  .md-typeset
-  .grid.cards
-  > ul
-  > li:hover
-  .objective-badge,
-[data-md-color-scheme="slate"]
-  .md-typeset
-  .grid.cards
-  li:hover
-  .objective-badge {
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li:hover .objective-badge,
+[data-md-color-scheme="slate"] .md-typeset .grid.cards li:hover .objective-badge {
   box-shadow: 0 4px 12px rgba(74, 35, 217, 0.5);
 }
 

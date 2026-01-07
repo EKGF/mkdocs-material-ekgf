@@ -14,8 +14,8 @@ features:
 
 # Assets
 extra_css:
-  - css/ekgf-theme.css
+  - assets/stylesheets/ekgf-theme.css
 
 extra_javascript:
-  - js/images_dark.js
-  - js/refresh_on_toggle_dark_light.js
+  - assets/javascripts/images_dark.js
+  - assets/javascripts/refresh_on_toggle_dark_light.js

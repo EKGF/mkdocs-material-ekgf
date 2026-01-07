@@ -10,7 +10,7 @@
   {% set class = class ~ " md-header--shadow" %}
 {% endif %}
 <header class="{{ class }}" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+  <div class="md-header__inner md-grid">
     <div class="md-header__row md-header__row--top">
       {# Column 1: EKGF logo #}
       <div class="md-header__col md-header__col--logo">
@@ -51,6 +51,19 @@
       </div>
     </div>
 
+    {# Components for JS to relocate to footer #}
+    <div class="ekgf-header-hidden-components">
+      {% include "partials/javascripts/palette.html" %}
+      {% if config.extra.alternate %}
+        {% include "partials/alternate.html" %}
+      {% endif %}
+      {% if config.repo_url %}
+        <div class="md-header__source">
+          {% include "partials/source.html" %}
+        </div>
+      {% endif %}
+    </div>
+
     {# Standard Material search components, kept for JS functionality but hidden visually #}
     {% if "material/search" in config.plugins %}
       {% set search = config.plugins["material/search"] | attr("config") %}
@@ -64,20 +77,7 @@
         </div>
       {% endif %}
     {% endif %}
-
-    {# Components for JS to relocate to footer #}
-    <div class="ekgf-header-hidden-components">
-      {% if config.repo_url %}
-        <div class="md-header__source">
-          {% include "partials/source.html" %}
-        </div>
-      {% endif %}
-      {% if config.extra.alternate %}
-        {% include "partials/alternate.html" %}
-      {% endif %}
-    </div>
-  </nav>
-
+  </div>
   {% if "navigation.tabs.sticky" in features %}
     {% if "navigation.tabs" in features %}
       {% include "partials/tabs.html" %}

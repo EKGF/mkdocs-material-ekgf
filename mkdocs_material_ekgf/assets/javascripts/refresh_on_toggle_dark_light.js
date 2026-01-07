@@ -1,11 +1,20 @@
-(function () {
-  // Global listener for palette changes
-  document.addEventListener("change", function (event) {
-    if (event.target && event.target.name === "__palette") {
-      // Small delay to let Material for MkDocs process the change first
-      setTimeout(function () {
-        location.reload();
-      }, 100);
+(function() {
+    const paletteSwitcher0 = document.getElementById("__palette_0");
+    const paletteSwitcher1 = document.getElementById("__palette_1");
+
+    if (paletteSwitcher0) {
+        paletteSwitcher0.addEventListener("change", function () {
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        });
     }
-  });
+
+    if (paletteSwitcher1) {
+        paletteSwitcher1.addEventListener("change", function () {
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        });
+    }
 })();

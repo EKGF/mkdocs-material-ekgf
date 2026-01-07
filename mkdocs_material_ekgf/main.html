@@ -67,7 +67,7 @@
     }
 
     // Run early so Material can pick up the palette
-    // applyPaletteFromCookie();
+    applyPaletteFromCookie();
 
     document.addEventListener("DOMContentLoaded", function () {
       // Ensure cookie exists even if user never toggles
@@ -181,18 +181,6 @@
           footerInner.appendChild(wrapper);
         }
       })();
-
-      // Force reload on palette change to ensure all components (mermaid, etc) refresh
-      (function setupPaletteReload() {
-        var ref = document.querySelector("[data-md-component=palette]");
-        if (ref) {
-          ref.addEventListener("change", function () {
-            setTimeout(function () {
-              location.reload();
-            }, 100);
-          });
-        }
-      })();
     });
   })();
 </script>
@@ -243,7 +231,8 @@
         data-lang="en"
         crossorigin="anonymous"
         async
-></script>
+>
+</script>
 
 <!-- Reload on palette change -->
 <script>
