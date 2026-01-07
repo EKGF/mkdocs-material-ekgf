@@ -14,26 +14,29 @@ documentation websites.
 
 ```text
 mkdocs-material-ekgf/
+├── .github/workflows/        # GitHub Actions (CI & Publish)
 ├── 📄 README.md              # Main documentation
 ├── 📄 QUICKSTART.md          # 5-minute setup guide
 ├── 📄 INTEGRATION.md         # Detailed integration guide
+├── 📄 DEVELOPMENT.md         # Developer guide & tooling
+├── 📄 STATUS.md              # Current project status
 ├── 📄 CHANGELOG.md           # Version history
 ├── 📄 LICENSE                # MIT License
-├── 📄 MANIFEST.in            # Package manifest
-├── 📄 pyproject.toml         # Modern Python packaging
-├── 📄 setup.py               # Package setup
+├── 📄 Makefile               # Unified command interface
+├── 📄 pyproject.toml         # Hatchling & uv configuration
 ├── 📄 .gitignore             # Git ignore rules
 │
-└── mkdocs_material_ekgf/     # Theme package
-    ├── __init__.py           # Package initialization
-    ├── main.html             # Base template with theme sync
+└── mkdocs_material_ekgf/     # Theme package & Plugin
+    ├── __init__.py           # Plugin implementation
+    ├── main.html             # Base template overrides
+    ├── mkdocs_theme.yml      # Theme metadata
     │
     ├── partials/             # 9 partial templates
     │   ├── header.html       # 3-row header layout
     │   ├── footer.html       # EKGF footer
     │   ├── tabs.html         # Navigation with search
     │   ├── ekgf-logo.html    # EKGF logo component
-    │   ├── omg-logo.html     # OMG logo (271 lines of SVG)
+    │   ├── omg-logo.html     # OMG logo
     │   ├── search-box.html   # Custom search input
     │   ├── palette.html      # Theme toggle
     │   ├── seo.html          # SEO meta tags
@@ -50,9 +53,9 @@ mkdocs-material-ekgf/
 ### Git Repository
 
 - ✅ Initialized with proper structure
-- ✅ 2 commits made following conventional commit format
-- ✅ All files tracked and committed
-- 📊 22 files, 3,481 lines of code
+- ✅ Correctly signed commits (Jacobus Geluk)
+- ✅ Modern branch structure (`main`)
+- 📊 34 files, 5,214 lines of code
 
 ### Design Features Extracted
 
@@ -107,13 +110,27 @@ From [ekg-principles](../ekg-principles/):
    - Schema.org markup
    - Dynamic page metadata
 
+### Modern Tooling (Based on ekg-method)
+
+- ✅ **UV**: Fast Python package manager
+- ✅ **Python 3.14.2**: Latest Python version
+- ✅ **Hatchling**: Modern build backend
+- ✅ **Ruff**: Fast Python linter and formatter
+- ✅ **Husky**: Git hooks for quality checks
+- ✅ **Commitlint**: Commit message validation (Angular convention)
+- ✅ **Prettier**: Markdown formatting (70 char line length)
+- ✅ **Markdownlint**: Markdown linting
+- ✅ **EditorConfig**: Consistent editor settings
+- ✅ **GitHub Actions**: CI and automated PyPI publishing
+- ✅ **Makefile**: Unified command interface
+
 ## Installation Methods
 
 ### Method 1: Local Development Install (Recommended for Testing)
 
 ```bash
 cd ~/Work/mkdocs-material-ekgf
-pip install -e .
+uv pip install -e .
 ```
 
 ### Method 2: From Git Repository (For Team)
@@ -122,7 +139,7 @@ pip install -e .
 pip install git+file:///Users/jgeluk/Work/mkdocs-material-ekgf
 ```
 
-### Method 3: From PyPI (Future)
+### Method 3: From PyPI (Recommended for Production)
 
 ```bash
 pip install mkdocs-material-ekgf
@@ -130,80 +147,18 @@ pip install mkdocs-material-ekgf
 
 ## How to Use
 
-1. Install the package:
+1. Install the package using one of the methods above.
 
-```bash
-cd ~/Work/mkdocs-material-ekgf
-pip install -e .
-```
-
-1. Find the installation path:
-
-```bash
-python3 -c "import mkdocs_material_ekgf, os; \
-print(os.path.dirname(mkdocs_material_ekgf.__file__))"
-```
-
-1. Update any EKGF site's `mkdocs.yml`:
+1. Update your `mkdocs.yml` to include the plugin:
 
 ```yaml
-theme:
-  name: material
-  custom_dir: /path/from/step/2/mkdocs_material_ekgf
+plugins:
+  - material-ekgf
+  - search
 ```
 
-1. Test:
-
-```bash
-mkdocs serve
-```
-
-See [QUICKSTART.md](QUICKSTART.md) for complete instructions.
-
-## Migration Path for EKGF Sites
-
-### Site: ekg-principles
-
-**Status**: Source of design - can migrate to verify no regressions
-
-**Steps**:
-
-1. Install package
-2. Update `mkdocs.yml` to use `custom_dir` pointing to package
-3. Remove `docs-overrides/` directory
-4. Remove custom CSS/JS references
-5. Test and compare
-
-**Expected Result**: Identical appearance
-
-### Site: ekg-method
-
-**Status**: Ready to migrate - currently has basic overrides
-
-**Steps**:
-
-1. Install package
-2. Update `mkdocs.yml`
-3. Remove `docs-overrides/`
-4. Test objective badges still work
-
-**Expected Result**: Significant visual improvement
-
-### Site: ekg-catalog
-
-**Status**: Ready to migrate - similar to ekg-method
-
-**Steps**: Same as ekg-method
-
-**Expected Result**: Significant visual improvement
-
-### Site: ekg-maturity
-
-**Status**: Ready to migrate - uses indigo colors (already matching!)
-
-**Steps**: Same as ekg-method
-
-**Expected Result**: Consistent branding with enhanced features
+The plugin automatically configures the theme, sets the `custom_dir`,
+and injects all necessary assets.
 
 ## Next Steps
 
@@ -218,114 +173,13 @@ See [QUICKSTART.md](QUICKSTART.md) for complete instructions.
 
 1. **Fix Any Issues**: Address bugs found during testing
 2. **Add Examples**: Create example site demonstrating all features
-3. **Write Tests**: Add automated testing
-4. **CI/CD**: Set up GitHub Actions for linting, building
+3. **CI/CD**: Set up GitHub Secrets for PyPI publishing
 
 ### Medium-term (Distribution)
 
 1. **Push to GitHub**: Create EKGF/mkdocs-material-ekgf repository
-2. **Publish to PyPI**: Make available via `pip install`
-3. **Migrate Sites**: Roll out to all 4 EKGF documentation sites
-4. **Documentation Site**: Create docs.ekgf.org/themes/material-ekgf
-
-### Long-term (Enhancement)
-
-1. **Theme Variants**: Add color preset options
-2. **More Card Backgrounds**: Expand card library
-3. **Video Tutorials**: Create setup and usage videos
-4. **Community Themes**: Allow community contributions
-
-## Implementation Decisions
-
-Based on user input:
-
-- ✅ **Distribution**: Python package (not shared directory)
-- ✅ **Repository**: `~/Work/mkdocs-material-ekgf`
-- ✅ **Package Name**: `mkdocs-material-ekgf`
-- ✅ **Color Scheme**: Identical across all sites
-- ✅ **OMG Branding**: Always visible (consistent branding)
-- ✅ **Footer Links**: Standardized across all sites
-- ✅ **Card Layouts**: All sites will use enhanced designs
-
-## Documentation Files
-
-| File | Purpose |
-| :--- | :--- |
-| [README.md](README.md) | Main project documentation |
-| [QUICKSTART.md](QUICKSTART.md) | Fast 5-minute setup guide |
-| [INTEGRATION.md](INTEGRATION.md) | Comprehensive integration guide |
-| [CHANGELOG.md](CHANGELOG.md) | Version history and release notes |
-| [LICENSE](LICENSE) | MIT License |
-| [SUMMARY.md](SUMMARY.md) | This file - project overview |
-
-## Technical Details
-
-### Dependencies
-
-- Python >= 3.8
-- MkDocs >= 1.5.0
-- mkdocs-material >= 9.0.0
-
-### Compatibility
-
-- ✅ Light mode
-- ✅ Dark mode
-- ✅ Mobile responsive (<640px)
-- ✅ Tablet responsive (640-959px)
-- ✅ Desktop (960px+)
-- ✅ Modern browsers (Chrome, Firefox, Safari, Edge)
-
-### File Statistics
-
-- **Total Files**: 22
-- **Python Files**: 2 (setup.py, **init**.py)
-- **HTML Templates**: 10 (main + 9 partials)
-- **CSS**: 1,658 lines
-- **JavaScript**: 2 files
-- **Documentation**: 6 files
-- **Total Lines**: 3,481
-
-## Testing Checklist
-
-Before deploying to production, verify:
-
-- [ ] Package installs without errors
-- [ ] Theme loads in MkDocs site
-- [ ] Header displays correctly (3 rows)
-- [ ] EKGF logo appears and links to homepage
-- [ ] OMG logo appears (desktop only)
-- [ ] Navigation tabs work
-- [ ] Search box appears and functions
-- [ ] Theme toggle works (light ↔ dark)
-- [ ] Footer displays with all sections
-- [ ] Footer links are correct
-- [ ] Process cards render with backgrounds
-- [ ] Theme cards render in 4-column grid
-- [ ] Objective badges display correctly
-- [ ] Dark mode colors are correct
-- [ ] Mobile layout is responsive
-- [ ] All JavaScript runs without errors
-- [ ] SEO meta tags are present
-- [ ] Cookie sync works across *.ekgf.org
-
-## Success Metrics
-
-The project is successful if:
-
-1. ✅ All EKGF sites can use the theme
-2. ✅ Visual consistency across all sites
-3. ✅ Easy to install and configure
-4. ✅ Maintainable (single source of truth)
-5. ✅ Well documented
-6. ✅ Version controlled
-7. ✅ No regressions from current sites
-
-## Contact & Support
-
-- **Repository**: `~/Work/mkdocs-material-ekgf`
-- **GitHub**: (to be created) `github.com/EKGF/mkdocs-material-ekgf`
-- **Issues**: Use GitHub Issues when repository is published
-- **Documentation**: [EKGF Documentation](https://ekgf.org)
+2. **Publish to PyPI**: Tag a release (e.g., `v1.0.0`) to trigger GHA
+3. **Migrate Sites**: Roll out to all EKGF documentation sites
 
 ## Credits
 
@@ -334,20 +188,10 @@ The project is successful if:
   MkDocs](https://squidfunk.github.io/mkdocs-material/) by Martin
   Donath
 - **Created**: January 6, 2026
+- **Author**: Jacobus Geluk <jacobus.geluk@ekgf.org>
 - **Organization**: EKGF (Enterprise Knowledge Graph Forum)
 - **License**: MIT
 
 ---
 
-**Status**: ✅ Package complete and ready for testing!
-
-**Next Action**: Install locally and test with ekg-principles:
-
-```bash
-cd ~/Work/mkdocs-material-ekgf
-pip install -e .
-
-cd ~/Work/ekg-principles
-# Update mkdocs.yml to use the package
-mkdocs serve
-```
+**Status**: ✅ Package complete, modernized, and ready for publishing!

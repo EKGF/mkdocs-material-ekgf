@@ -225,6 +225,49 @@ cd ~/Work/ekg-method
 mkdocs serve
 ```
 
+## GitHub Actions
+
+The repository includes two workflows:
+
+1. **CI (`ci.yml`)**: Runs on every push and pull request to `main`.
+   - Lints Python code with Ruff
+   - Checks formatting
+   - Builds the package to verify it's valid
+2. **Publish (`publish.yml`)**: Runs on every tag push starting with `v`
+   (e.g., `v1.0.0`).
+   - Builds the package
+   - Publishes to PyPI using Trusted Publishing
+
+## Publishing to PyPI
+
+### Manual Publishing (with twine)
+
+1. Build the package:
+
+```bash
+make build
+```
+
+1. Upload to PyPI:
+
+```bash
+make publish
+```
+
+### Automatic Publishing (Recommended)
+
+1. Update the version in `pyproject.toml` and
+   `mkdocs_material_ekgf/__init__.py`.
+2. Commit and push the changes.
+3. Create and push a tag:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+GitHub Actions will automatically build and publish the package.
+
 ## Building the Package
 
 ### Build Wheel and Source Distribution
