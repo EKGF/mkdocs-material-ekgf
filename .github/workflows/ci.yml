@@ -2,38 +2,45 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
-          
+          python-version: "3.14"
+
       - name: Install uv
         run: pip install uv
-        
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock', 'pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
       - name: Install dependencies
         run: uv sync --all-extras
-        
+
       - name: Run Ruff Check
         run: uv run ruff check .
-        
+
       - name: Run Ruff Format Check
         run: uv run ruff format --check .
-        
-      - name: Build Package
+
+      - name: Build Package (Dry Run)
         run: uv build
-        
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
+
+      - name: Check package validity
+        run: |
+          uv pip install twine
+          uv run twine check dist/*
