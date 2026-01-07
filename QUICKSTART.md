@@ -26,22 +26,7 @@ uv add git+https://github.com/EKGF/mkdocs-material-ekgf.git
 uv add mkdocs-material-ekgf
 ```
 
-## Step 2: Find the Theme Path
-
-After installation, find where the package is installed:
-
-```bash
-python3 -c "import mkdocs_material_ekgf; import os; \
-print(os.path.dirname(mkdocs_material_ekgf.__file__))"
-```
-
-This will output something like:
-
-```text
-/Users/yourname/.../site-packages/mkdocs_material_ekgf
-```
-
-## Step 3: Update Your mkdocs.yml
+## Step 2: Update Your mkdocs.yml
 
 Add the `material-ekgf` plugin to your `mkdocs.yml`:
 
@@ -76,7 +61,7 @@ The plugin automatically:
 2. Adds the EKGF theme CSS and JavaScript assets.
 3. Configures recommended features (tabs, sticky header, etc.).
 
-## Step 4: Test Locally
+## Step 3: Test Locally
 
 ```bash
 cd /path/to/your/mkdocs/site
@@ -93,7 +78,7 @@ Open <http://127.0.0.1:8000> and verify:
 - ✓ Theme toggle works (sun/moon icon)
 - ✓ Footer matches EKGF design
 
-## Step 5: Build for Production
+## Step 4: Build for Production
 
 ```bash
 mkdocs build
