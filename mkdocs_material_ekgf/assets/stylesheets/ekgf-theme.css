@@ -1,3 +1,20 @@
+/* Light/dark mode visibility toggles */
+.only-dark {
+  display: none;
+}
+
+.only-light {
+  display: block;
+}
+
+[data-md-color-scheme="slate"] .only-dark {
+  display: block;
+}
+
+[data-md-color-scheme="slate"] .only-light {
+  display: none;
+}
+
 :root {
   /* EKGF custom colors */
   --md-primary-fg-color: #4051b5;
