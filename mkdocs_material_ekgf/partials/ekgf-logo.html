@@ -1,9 +1,9 @@
-{# EKGF logo with inline SVG and text #}
+{# EKGF logo with inline SVG and text - links to main EKGF site #}
 <a
-  href="{{ config.site_url | default(nav.homepage.url, true) | url }}"
+  href="{{ config.extra.homepage | default('https://ekgf.org/quadrants', true) }}"
   class="md-header__button md-logo"
-  aria-label="{{ config.site_name }}"
-  title="{{ config.site_name }}"
+  aria-label="EKGF Home"
+  title="Go to EKGF Home"
 >
   <span class="ekgf-logo-wrap">
     <svg viewBox="12 30 170 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EKGF Logo" class="ekgf-logo-symbol">
