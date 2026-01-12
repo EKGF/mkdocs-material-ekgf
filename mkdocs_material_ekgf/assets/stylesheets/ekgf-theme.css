@@ -393,6 +393,14 @@
   right: auto !important;
 }
 
+/* Make all search elements fill the container width */
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form,
+[data-md-toggle="search"]:checked ~ .md-header .md-search__output {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 /* Search button styling in tabs row */
 .ekgf-search-button {
   display: flex !important;
