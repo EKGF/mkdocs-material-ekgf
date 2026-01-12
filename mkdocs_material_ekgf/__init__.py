@@ -13,11 +13,12 @@ class MaterialEkgfPlugin(BasePlugin):
         # Path to this package
         base_path = os.path.dirname(__file__)
 
-        # 1. Automatically set custom_dir
+        # 1. Add our template dir AFTER any local custom_dir so local overrides take priority
         theme = config.get("theme")
         if theme:
             if base_path not in theme.dirs:
-                theme.dirs.insert(0, base_path)
+                # Append to end so local custom_dir (first in list) has priority
+                theme.dirs.append(base_path)
 
         # 2. Add our assets to extra_css and extra_javascript
         # Note: These paths must be relative to the docs_dir or site_dir
