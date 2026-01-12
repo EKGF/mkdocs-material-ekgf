@@ -385,9 +385,12 @@
   max-height: 25rem;
 }
 
-/* Hide the redundant search form in the dialog since we have our own entry box */
+/* Keep Material's search form visible in the modal - users type here */
 .md-header .md-search__form {
-  display: none;
+  display: flex;
+  padding: 0.5rem;
+  background: var(--md-default-bg-color);
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
 /* Adjust results spacing */
