@@ -3,19 +3,25 @@
   We manually render the tabs list to ensure it's inside the same grid as the search.
 
   URL handling follows Material for MkDocs pattern:
-  - For items with children (sections), use the first child's URL
+  - For items with children (sections), recursively find the first leaf page URL
   - For items without children (direct pages), use the item's own URL
 -#}
+
+{#- Macro to recursively find the first leaf page URL -#}
+{% macro get_first_page_url(item) %}
+  {%- if item.children -%}
+    {{ get_first_page_url(item.children[0]) }}
+  {%- else -%}
+    {{ item.url }}
+  {%- endif -%}
+{% endmacro %}
+
 <nav class="md-tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       {% for nav_item in nav %}
-        {# For sections with children, always use first child's URL (handles navigation.indexes) #}
-        {% if nav_item.children %}
-          {% set item_url = nav_item.children[0].url %}
-        {% else %}
-          {% set item_url = nav_item.url %}
-        {% endif %}
+        {# Get URL by recursively finding first leaf page #}
+        {% set item_url = get_first_page_url(nav_item) | trim %}
 
         <li class="md-tabs__item {% if nav_item.active %}md-tabs__item--active{% endif %}">
           <a href="{{ item_url | url }}" class="md-tabs__link {% if nav_item.active %}md-tabs__link--active{% endif %}">
