@@ -2,7 +2,7 @@ import os
 
 from mkdocs.plugins import BasePlugin
 
-__version__ = "0.0.10"
+__version__ = "0.0.11"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"
@@ -29,6 +29,7 @@ class MaterialEkgfPlugin(BasePlugin):
         js_assets = [
             "assets/javascripts/images_dark.js",
             "assets/javascripts/refresh_on_toggle_dark_light.js",
+            "assets/javascripts/search_bridge.js",
         ]
 
         for js in js_assets:
