@@ -641,9 +641,60 @@ body[data-md-color-scheme="slate"]
   width: 100%;
 }
 
-/* Sidebar separator gimmick */
+/* Sidebar separator - removed border since scrollbar acts as visual separator */
 .md-sidebar--primary {
-  border-right: 0.5px solid var(--omg-separator-color);
+  /* border-right removed to prevent artifact with scrollbar */
+}
+
+/* Hide sidebar scrollbar by default, show on hover */
+.md-sidebar__scrollwrap {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 0;
+  display: none; /* Chrome/Safari/Opera */
+}
+
+.md-sidebar:hover .md-sidebar__scrollwrap {
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
+}
+
+.md-sidebar:hover .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 4px;
+  display: block;
+}
+
+.md-sidebar:hover .md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background: var(--md-default-fg-color--lighter);
+  border-radius: 2px;
+}
+
+.md-sidebar:hover .md-sidebar__scrollwrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Ensure secondary sidebar (TOC) also hides its scrollbar */
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.md-sidebar--secondary .md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+/* Hide any scrollbar artifacts on content area */
+.md-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.md-content::-webkit-scrollbar {
+  display: none;
 }
 
 .ekgf-footer__inner {

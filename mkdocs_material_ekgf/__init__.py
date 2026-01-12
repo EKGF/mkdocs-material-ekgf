@@ -13,12 +13,19 @@ class MaterialEkgfPlugin(BasePlugin):
         # Path to this package
         base_path = os.path.dirname(__file__)
 
-        # 1. Add our template dir AFTER any local custom_dir so local overrides take priority
+        # 1. Add our template dir in the right position:
+        #    - AFTER any local custom_dir (so local overrides take priority)
+        #    - BEFORE Material's built-in templates (so plugin templates override Material defaults)
+        # Order should be: [custom_dir, plugin_dir, material_built_in]
         theme = config.get("theme")
         if theme:
             if base_path not in theme.dirs:
-                # Append to end so local custom_dir (first in list) has priority
-                theme.dirs.append(base_path)
+                if len(theme.dirs) > 1:
+                    # custom_dir exists at [0], Material at [1+], insert plugin at [1]
+                    theme.dirs.insert(1, base_path)
+                else:
+                    # No custom_dir, just Material at [0], insert plugin at [0]
+                    theme.dirs.insert(0, base_path)
 
         # 2. Add our assets to extra_css and extra_javascript
         # Note: These paths must be relative to the docs_dir or site_dir
