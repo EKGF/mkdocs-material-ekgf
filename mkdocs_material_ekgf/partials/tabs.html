@@ -1,14 +1,20 @@
 {#-
   Custom tabs override to include search box inside the grid.
   We manually render the tabs list to ensure it's inside the same grid as the search.
+
+  URL handling follows Material for MkDocs pattern:
+  - For items with children (sections), use the first child's URL
+  - For items without children (direct pages), use the item's own URL
 -#}
 <nav class="md-tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       {% for nav_item in nav %}
-        {% set item_url = nav_item.url %}
-        {% if not item_url and nav_item.children %}
+        {# For sections with children, always use first child's URL (handles navigation.indexes) #}
+        {% if nav_item.children %}
           {% set item_url = nav_item.children[0].url %}
+        {% else %}
+          {% set item_url = nav_item.url %}
         {% endif %}
 
         <li class="md-tabs__item {% if nav_item.active %}md-tabs__item--active{% endif %}">
