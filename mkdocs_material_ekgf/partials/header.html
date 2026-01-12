@@ -64,18 +64,9 @@
       {% endif %}
     </div>
 
-    {# Standard Material search components, kept for JS functionality but hidden visually #}
-    {% if "material/search" in config.plugins %}
-      {% set search = config.plugins["material/search"] | attr("config") %}
-      {% if search.enabled %}
-        <div class="ekgf-hidden-search-trigger">
-          <label class="md-header__button md-icon" for="__search">
-            {% set icon = config.theme.icon.search or "material/magnify" %}
-            {% include ".icons/" ~ icon ~ ".svg" %}
-          </label>
-          {% include "partials/search.html" %}
-        </div>
-      {% endif %}
+    {# Material search modal - must be visible for search to work #}
+    {% if "search" in config.plugins or "material/search" in config.plugins %}
+      {% include "partials/search.html" %}
     {% endif %}
   </div>
   {% if "navigation.tabs.sticky" in features %}
