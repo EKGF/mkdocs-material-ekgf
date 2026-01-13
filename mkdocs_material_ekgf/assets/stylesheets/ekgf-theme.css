@@ -1724,21 +1724,21 @@ html {
   font-weight: 700 !important;
 }
 
-/* ===== LANDING PAGE HERO AND BENEFIT CARDS ===== */
+/* ===== LANDING PAGE COMPONENTS ===== */
 
-/* Hero container for landing pages */
-.hero-container {
+/* Hero section for landing pages */
+.ekgf-hero {
   text-align: center;
   padding: 3rem 1rem 2rem;
   margin-bottom: 2rem;
 }
 
-.hero-container h1 {
+.ekgf-hero h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.hero-buttons {
+.ekgf-hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -1746,8 +1746,8 @@ html {
   margin-top: 1.5rem;
 }
 
-/* Benefit grid - 4 cards in a row on desktop */
-.benefit-grid {
+/* Image card grid - 4 cards in a row on desktop */
+.ekgf-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
@@ -1755,13 +1755,13 @@ html {
 }
 
 @media screen and (min-width: 960px) {
-  .benefit-grid {
+  .ekgf-card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Benefit card with background image */
-.benefit-card-custom {
+/* Image card with background image overlay */
+.ekgf-image-card {
   position: relative;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -1772,7 +1772,7 @@ html {
   align-items: flex-end;
 }
 
-.benefit-card-custom::before {
+.ekgf-image-card::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1784,21 +1784,21 @@ html {
   );
 }
 
-.benefit-card-custom-content {
+.ekgf-image-card-content {
   position: relative;
   z-index: 1;
   padding: 1.25rem;
   color: #fff;
 }
 
-.benefit-card-custom-content strong {
+.ekgf-image-card-content strong {
   display: block;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   color: #fff;
 }
 
-.benefit-card-custom-content p {
+.ekgf-image-card-content p {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
@@ -1806,8 +1806,8 @@ html {
   color: #fff;
 }
 
-/* Landing page explanatory section */
-.landing-explanatory-section {
+/* Highlighted section block */
+.ekgf-highlight-section {
   background: var(--md-code-bg-color);
   border-radius: 0.5rem;
   padding: 2rem;
