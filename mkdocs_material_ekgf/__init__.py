@@ -40,6 +40,7 @@ class MaterialEkgfPlugin(BasePlugin):
         js_assets = [
             "assets/javascripts/images_dark.js",
             "assets/javascripts/refresh_on_toggle_dark_light.js",
+            "assets/javascripts/nav-section-links.js",
         ]
 
         for js in js_assets:
