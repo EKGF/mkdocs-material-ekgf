@@ -27,8 +27,15 @@
   /* OMG separator color alignment - matched to SVG color + link opacity (0.85) */
   --omg-separator-color: rgba(163, 163, 163, 0.85);
 
+  /* Unified left gutter for consistent vertical alignment across:
+     - Logo "EKGF" text
+     - First tab menu item
+     - Sidebar nav titles
+     - Footer sections */
+  --ekgf-gutter-left: 0.8rem;
+
   /* Fine-tune: align header "EKGF" text with first top-level tab label */
-  --ekgf-logo-text-offset-x: -27px;
+  --ekgf-logo-text-offset-x: -26px;
 
   /* ekgf.org surface tokens (light) */
   /* Slightly off-white to create a subtle contrast vs the (pure white) footer */
@@ -151,8 +158,8 @@
   max-width: 61rem; /* Match Material's default container width */
   margin: 0 auto;
   margin-bottom: -0.4rem; /* Pull navigation row up further */
-  padding-left: 0.8rem;
-  padding-right: 0.8rem;
+  padding-left: var(--ekgf-gutter-left);
+  padding-right: var(--ekgf-gutter-left);
 }
 
 .md-header__col {
@@ -256,7 +263,7 @@
   position: relative;
   display: inline-flex;
   align-items: baseline;
-  padding-left: 0.8rem; /* baseline tab offset (.2rem + .6rem) */
+  padding-left: var(--ekgf-gutter-left);
   transform: translateX(var(--ekgf-logo-text-offset-x));
 }
 
@@ -332,7 +339,8 @@
 }
 
 .md-tabs__list {
-  margin: 0 !important;
+  /* Fine-tune: align first tab with EKGF logo text (2px offset) */
+  margin: 0 0 0 2px !important;
   display: flex;
   align-items: center;
 }
@@ -646,6 +654,11 @@ body[data-md-color-scheme="slate"]
   /* border-right removed to prevent artifact with scrollbar */
 }
 
+/* Fine-tune: align sidebar nav with EKGF logo text (-2px adjustment) */
+.md-sidebar--primary .md-nav--primary {
+  margin-left: -2px;
+}
+
 /* Hide sidebar scrollbar by default, show on hover */
 .md-sidebar__scrollwrap {
   scrollbar-width: none; /* Firefox */
@@ -700,9 +713,9 @@ body[data-md-color-scheme="slate"]
 .ekgf-footer__inner {
   padding-top: 1em;
   padding-bottom: 10px;
-  /* Fine-tune footer gutter alignment */
-  padding-left: calc(0.8rem - 2px);
-  padding-right: calc(0.8rem - 2px);
+  /* Fine-tune: align with EKGF logo text (-2px adjustment) */
+  padding-left: calc(var(--ekgf-gutter-left) - 2px);
+  padding-right: var(--ekgf-gutter-left);
 }
 
 /* Fine-tune: align top-level page H1 with the tabs/logo gutter */
