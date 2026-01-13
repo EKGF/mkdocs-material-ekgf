@@ -2,7 +2,7 @@ import os
 
 from mkdocs.plugins import BasePlugin
 
-__version__ = "0.0.13"
+__version__ = "0.0.14"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"
@@ -16,16 +16,19 @@ class MaterialEkgfPlugin(BasePlugin):
         # 1. Add our template dir in the right position:
         #    - AFTER any local custom_dir (so local overrides take priority)
         #    - BEFORE Material's built-in templates (so plugin templates override Material defaults)
-        # Order should be: [custom_dir, plugin_dir, material_built_in]
+        # Order should be: [custom_dir, plugin_dir, material_built_in, mkdocs_base]
         theme = config.get("theme")
         if theme:
             if base_path not in theme.dirs:
-                if len(theme.dirs) > 1:
-                    # custom_dir exists at [0], Material at [1+], insert plugin at [1]
-                    theme.dirs.insert(1, base_path)
-                else:
-                    # No custom_dir, just Material at [0], insert plugin at [0]
+                # Check if custom_dir is set by seeing if first entry is Material's templates
+                first_dir = theme.dirs[0] if theme.dirs else ""
+                first_is_material = "material" in first_dir and "templates" in first_dir
+                if first_is_material:
+                    # No custom_dir - insert plugin at [0] to override Material
                     theme.dirs.insert(0, base_path)
+                else:
+                    # custom_dir at [0] - insert plugin at [1] (after custom_dir)
+                    theme.dirs.insert(1, base_path)
 
         # 2. Add our assets to extra_css and extra_javascript
         # Note: These paths must be relative to the docs_dir or site_dir
