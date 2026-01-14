@@ -83,10 +83,16 @@
       // Mark as processed
       item.dataset.sectionLinked = "true";
 
-      // Make item position relative for absolute positioning
-      item.style.position = "relative";
+      // Find the actual label/link container to position overlay relative to it
+      const labelContainer = item.querySelector(":scope > label.md-nav__link") ||
+                             item.querySelector(":scope > .md-nav__link");
 
-      // Create transparent clickable overlay
+      if (!labelContainer) return;
+
+      // Make label container position relative for absolute positioning
+      labelContainer.style.position = "relative";
+
+      // Create transparent clickable overlay - positioned within the label only
       const overlay = document.createElement("a");
       overlay.href = indexUrl;
       overlay.className = "ekgf-section-link-overlay";
@@ -95,8 +101,8 @@
         "position: absolute",
         "top: 0",
         "left: 0",
-        "width: calc(100% - 1.6rem)",
-        "height: 2.25rem",
+        "width: calc(100% - 1.2rem)",
+        "height: 100%",
         "z-index: 10",
         "cursor: pointer",
         "display: block"
@@ -108,8 +114,8 @@
         window.location.href = indexUrl;
       });
 
-      // Insert overlay as first child
-      item.insertBefore(overlay, item.firstChild);
+      // Insert overlay inside the label container
+      labelContainer.insertBefore(overlay, labelContainer.firstChild);
     });
   }
 
