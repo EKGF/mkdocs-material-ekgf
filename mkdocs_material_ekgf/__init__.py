@@ -2,7 +2,7 @@ import os
 
 from mkdocs.plugins import BasePlugin
 
-__version__ = "0.0.17"
+__version__ = "0.0.18"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"

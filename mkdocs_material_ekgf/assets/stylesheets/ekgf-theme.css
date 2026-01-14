@@ -1813,3 +1813,110 @@ html {
   padding: 2rem;
   margin: 2rem 0;
 }
+
+/* ===== TASK LIST CHECKBOX STYLING ===== */
+/* Make checkboxes more visible in both light and dark modes */
+
+/* Task list container - ensure proper spacing */
+.md-typeset ul.task-list {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Task list item - proper left margin for checkbox */
+.md-typeset .task-list-item {
+  list-style-type: none !important;
+  position: relative !important;
+  padding-left: 2em !important;
+  margin-left: 0 !important;
+}
+
+/* Control wrapper positioning - give it explicit dimensions */
+.md-typeset .task-list-control {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0.15em !important;
+  width: 1.25em !important;
+  height: 1.25em !important;
+  display: block !important;
+}
+
+/* Give indicator explicit dimensions */
+.md-typeset .task-list-indicator {
+  position: relative !important;
+  display: block !important;
+  width: 1.25em !important;
+  height: 1.25em !important;
+}
+
+/* Hide the default checkbox input */
+.md-typeset .task-list-item [type="checkbox"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 1.25em !important;
+  height: 1.25em !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  z-index: 1 !important;
+}
+
+/* Style the checkbox indicator (the visual checkbox) */
+.md-typeset .task-list-indicator::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 1.25em !important;
+  height: 1.25em !important;
+  border: 2.5px solid var(--md-primary-fg-color) !important;
+  border-radius: 0.25em !important;
+  background: rgba(64, 81, 181, 0.08) !important;
+  transition: all 0.2s ease !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Light mode - stronger border and background */
+[data-md-color-scheme="default"] .md-typeset .task-list-control .task-list-indicator::before {
+  border-color: #4051b5 !important;
+  background: rgba(64, 81, 181, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(64, 81, 181, 0.15) !important;
+}
+
+/* Dark mode - brighter border for visibility */
+[data-md-color-scheme="slate"] .md-typeset .task-list-control .task-list-indicator::before {
+  border-color: #9aa3c7 !important;
+  background: rgba(154, 163, 199, 0.15) !important;
+  box-shadow: 0 1px 3px rgba(154, 163, 199, 0.2) !important;
+}
+
+/* Hover state */
+.md-typeset .task-list-item:hover .task-list-indicator::before {
+  border-color: var(--md-accent-fg-color) !important;
+  background: rgba(255, 111, 0, 0.12) !important;
+  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.2) !important;
+}
+
+/* Checked state */
+.md-typeset .task-list-control [type="checkbox"]:checked + .task-list-indicator::before {
+  background: var(--md-primary-fg-color) !important;
+  border-color: var(--md-primary-fg-color) !important;
+}
+
+/* Checkmark for checked state */
+.md-typeset .task-list-control [type="checkbox"]:checked + .task-list-indicator::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0.4em !important;
+  top: 0.15em !important;
+  width: 0.4em !important;
+  height: 0.7em !important;
+  border: solid white !important;
+  border-width: 0 2.5px 2.5px 0 !important;
+  transform: rotate(45deg) !important;
+  pointer-events: none !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .task-list-control [type="checkbox"]:checked + .task-list-indicator::before {
+  background: var(--md-primary-fg-color--light) !important;
+  border-color: var(--md-primary-fg-color--light) !important;
+}
