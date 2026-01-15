@@ -1,5 +1,11 @@
 # MkDocs Material EKGF Theme
 
+[![PyPI version](https://img.shields.io/pypi/v/mkdocs-material-ekgf)](https://pypi.org/project/mkdocs-material-ekgf/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mkdocs-material-ekgf)](https://pypi.org/project/mkdocs-material-ekgf/)
+[![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-blue)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![CI](https://github.com/EKGF/mkdocs-material-ekgf/actions/workflows/ci.yml/badge.svg)](https://github.com/EKGF/mkdocs-material-ekgf/actions/workflows/ci.yml)
+[![PyPI downloads](https://img.shields.io/pypi/dm/mkdocs-material-ekgf)](https://pypi.org/project/mkdocs-material-ekgf/)
+
 A custom Material for MkDocs theme for EKGF (Enterprise Knowledge
 Graph Forum) documentation websites.
 
