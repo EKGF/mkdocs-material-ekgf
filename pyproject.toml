@@ -38,6 +38,9 @@ dev = [
   "pytest>=8.3.0",
   "twine>=5.0.0",
 ]
+social = [
+  "playwright>=1.40.0",
+]
 
 [project.entry-points."mkdocs.themes"]
 material-ekgf = "mkdocs_material_ekgf"
