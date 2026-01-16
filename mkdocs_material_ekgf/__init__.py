@@ -6,7 +6,7 @@ from mkdocs.plugins import BasePlugin
 
 from .config import MaterialEkgfConfig
 
-__version__ = "0.0.20"
+__version__ = "0.0.21"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"
