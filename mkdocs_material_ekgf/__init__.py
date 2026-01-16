@@ -6,7 +6,7 @@ from mkdocs.plugins import BasePlugin
 
 from .config import MaterialEkgfConfig
 
-__version__ = "0.0.22"
+__version__ = "0.0.23"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"
@@ -128,15 +128,29 @@ class MaterialEkgfPlugin(BasePlugin[MaterialEkgfConfig]):
         # Build the full URL to the card
         card_url = posixpath.join(config.site_url, card_path)
 
-        # Build meta tags
+        # Build meta tags for social card image
         meta_tags = [
             f'<meta property="og:image" content="{card_url}" />',
             '<meta property="og:image:type" content="image/png" />',
             '<meta property="og:image:width" content="1200" />',
             '<meta property="og:image:height" content="630" />',
-            '<meta name="twitter:card" content="summary_large_image" />',
             f'<meta name="twitter:image" content="{card_url}" />',
         ]
+
+        # Add author meta tags from page front matter
+        authors = []
+        if page.meta:
+            # Support both 'author' (string) and 'authors' (list)
+            if page.meta.get("authors"):
+                authors = page.meta["authors"]
+                if isinstance(authors, str):
+                    authors = [authors]
+            elif page.meta.get("author"):
+                author = page.meta["author"]
+                authors = [author] if isinstance(author, str) else author
+
+        for author in authors:
+            meta_tags.append(f'<meta property="article:author" content="{author}" />')
 
         # Find </head> and inject meta tags before it
         head_end = output.find("</head>")
