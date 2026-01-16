@@ -10,29 +10,21 @@
 {# Get page URL #}
 {% set page_url = config.site_url + page.url if page.url else config.site_url %}
 
-{# Get page image (use site logo or custom image) #}
-{% set page_image = config.site_url + "/assets/images/favicon.png" %}
-{% if page.meta and page.meta.image %}
-  {% set page_image = config.site_url + page.meta.image if page.meta.image.startswith("/") else page.meta.image %}
-{% endif %}
-
-{# Open Graph / Facebook #}
+{# Open Graph / Facebook - og:image is handled by MkDocs Material social plugin #}
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ page_url }}">
 <meta property="og:title" content="{{ full_title }}">
 <meta property="og:description" content="{{ page_description }}">
-<meta property="og:image" content="{{ page_image }}">
 <meta property="og:site_name" content="{{ config.site_name }}">
 {% if config.site_author %}
 <meta property="og:locale" content="en_US">
 {% endif %}
 
-{# Twitter Card #}
+{# Twitter Card - twitter:image is handled by MkDocs Material social plugin #}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="{{ page_url }}">
 <meta name="twitter:title" content="{{ full_title }}">
 <meta name="twitter:description" content="{{ page_description }}">
-<meta name="twitter:image" content="{{ page_image }}">
 {% if config.extra.social %}
   {% for social in config.extra.social %}
     {% if "twitter" in social.link %}
