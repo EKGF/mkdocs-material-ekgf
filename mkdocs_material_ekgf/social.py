@@ -113,9 +113,7 @@ class CardRenderer:
 
         self._playwright = sync_playwright().start()
         self._browser = self._playwright.chromium.launch()
-        self._page = self._browser.new_page(
-            viewport={"width": CARD_WIDTH, "height": CARD_HEIGHT}
-        )
+        self._page = self._browser.new_page(viewport={"width": CARD_WIDTH, "height": CARD_HEIGHT})
 
     def _cache_png_path(self, content_hash: str) -> Path:
         """Return the cache file path for a given content hash."""
@@ -177,10 +175,7 @@ class CardRenderer:
     def close(self):
         """Shut down the browser and Playwright, log summary."""
         if self._generated or self._cached:
-            log.info(
-                f"Social cards: {self._generated} generated, "
-                f"{self._cached} cached"
-            )
+            log.info(f"Social cards: {self._generated} generated, {self._cached} cached")
         if self._page is not None:
             self._page.close()
             self._page = None
