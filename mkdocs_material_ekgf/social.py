@@ -8,9 +8,11 @@ like the website with the same logos and styling.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import os
 import re
+import shutil
 import tempfile
 from pathlib import Path
 
@@ -19,6 +21,9 @@ log = logging.getLogger("mkdocs.material.social")
 # Card dimensions (standard Open Graph size)
 CARD_WIDTH = 1200
 CARD_HEIGHT = 630
+
+# Persistent cache directory (survives site/ rebuilds)
+_DEFAULT_CACHE_DIR = ".cache/social-cards"
 
 
 def get_partials_dir() -> Path:
@@ -81,108 +86,72 @@ def render_template(title: str, description: str = "") -> str:
     return html
 
 
-def generate_card(
-    title: str,
-    description: str = "",
-    output_path: str | Path | None = None,
-) -> Path:
-    """
-    Generate a social card image.
+def _content_hash(html_content: str) -> str:
+    """Compute a short SHA-256 hex digest of the rendered HTML."""
+    return hashlib.sha256(html_content.encode("utf-8")).hexdigest()[:16]
 
-    Args:
-        title: Page title
-        description: Page description (optional)
-        output_path: Path to save the PNG image (optional, uses temp file if not provided)
 
-    Returns:
-        Path to the generated PNG image
+class CardRenderer:
+    """Reuses a single Playwright browser across all card generations.
+
+    Cards are cached in a persistent directory (outside site/) so that
+    subsequent builds can skip Playwright entirely for unchanged pages.
     """
-    try:
+
+    def __init__(self, cache_dir: str | Path | None = None):
+        self._playwright = None
+        self._browser = None
+        self._page = None
+        self._cache_dir = Path(cache_dir) if cache_dir else Path(_DEFAULT_CACHE_DIR)
+        self._generated = 0
+        self._cached = 0
+
+    def _ensure_browser(self):
+        if self._page is not None:
+            return
         from playwright.sync_api import sync_playwright
-    except ImportError as e:
-        raise ImportError(
-            "Playwright is required for social card generation. "
-            "Install it with: pip install 'mkdocs-material-ekgf[social]'"
-        ) from e
 
-    # Render the HTML template
-    html_content = render_template(title, description)
+        self._playwright = sync_playwright().start()
+        self._browser = self._playwright.chromium.launch()
+        self._page = self._browser.new_page(
+            viewport={"width": CARD_WIDTH, "height": CARD_HEIGHT}
+        )
 
-    # Create a temporary HTML file
-    with tempfile.NamedTemporaryFile(
-        mode="w",
-        suffix=".html",
-        delete=False,
-        encoding="utf-8",
-    ) as f:
-        f.write(html_content)
-        temp_html_path = f.name
+    def _cache_png_path(self, content_hash: str) -> Path:
+        """Return the cache file path for a given content hash."""
+        return self._cache_dir / f"{content_hash}.png"
 
-    try:
-        # Determine output path
+    def generate(
+        self,
+        title: str,
+        description: str = "",
+        output_path: str | Path | None = None,
+    ) -> tuple[Path, bool]:
+        """Generate a social card, skipping Playwright if cached.
+
+        Returns:
+            Tuple of (path to PNG, True if newly generated / False if cached)
+        """
+        html_content = render_template(title, description)
+        content_hash = _content_hash(html_content)
+
         if output_path is None:
             output_path = Path(tempfile.mktemp(suffix=".png"))
         else:
             output_path = Path(output_path)
 
-        # Ensure output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Use Playwright to render and screenshot
-        with sync_playwright() as p:
-            browser = p.chromium.launch()
-            page = browser.new_page(viewport={"width": CARD_WIDTH, "height": CARD_HEIGHT})
+        # Check the persistent cache
+        cached_png = self._cache_png_path(content_hash)
+        if cached_png.exists():
+            shutil.copy2(cached_png, output_path)
+            self._cached += 1
+            return output_path, False
 
-            # Navigate to the HTML file
-            page.goto(f"file://{temp_html_path}")
+        # Cache miss — render with Playwright
+        self._cache_dir.mkdir(parents=True, exist_ok=True)
 
-            # Wait for fonts to load
-            page.wait_for_load_state("networkidle")
-
-            # Take screenshot
-            page.screenshot(path=str(output_path), type="png")
-
-            browser.close()
-
-        log.debug(f"Generated social card: {output_path}")
-        return output_path
-
-    finally:
-        # Clean up temporary HTML file
-        os.unlink(temp_html_path)
-
-
-def generate_card_async(
-    title: str,
-    description: str = "",
-    output_path: str | Path | None = None,
-) -> Path:
-    """
-    Generate a social card image asynchronously.
-
-    Args:
-        title: Page title
-        description: Page description (optional)
-        output_path: Path to save the PNG image (optional, uses temp file if not provided)
-
-    Returns:
-        Path to the generated PNG image
-    """
-    try:
-        import asyncio
-
-        from playwright.async_api import async_playwright
-    except ImportError as e:
-        raise ImportError(
-            "Playwright is required for social card generation. "
-            "Install it with: pip install 'mkdocs-material-ekgf[social]'"
-        ) from e
-
-    async def _generate():
-        # Render the HTML template
-        html_content = render_template(title, description)
-
-        # Create a temporary HTML file
         with tempfile.NamedTemporaryFile(
             mode="w",
             suffix=".html",
@@ -193,37 +162,46 @@ def generate_card_async(
             temp_html_path = f.name
 
         try:
-            # Determine output path
-            nonlocal output_path
-            if output_path is None:
-                output_path = Path(tempfile.mktemp(suffix=".png"))
-            else:
-                output_path = Path(output_path)
-
-            # Ensure output directory exists
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-
-            # Use Playwright to render and screenshot
-            async with async_playwright() as p:
-                browser = await p.chromium.launch()
-                page = await browser.new_page(viewport={"width": CARD_WIDTH, "height": CARD_HEIGHT})
-
-                # Navigate to the HTML file
-                await page.goto(f"file://{temp_html_path}")
-
-                # Wait for fonts to load
-                await page.wait_for_load_state("networkidle")
-
-                # Take screenshot
-                await page.screenshot(path=str(output_path), type="png")
-
-                await browser.close()
-
-            log.debug(f"Generated social card: {output_path}")
-            return output_path
-
+            self._ensure_browser()
+            self._page.goto(f"file://{temp_html_path}")
+            self._page.wait_for_load_state("networkidle")
+            self._page.screenshot(path=str(output_path), type="png")
         finally:
-            # Clean up temporary HTML file
             os.unlink(temp_html_path)
 
-    return asyncio.run(_generate())
+        # Store in persistent cache
+        shutil.copy2(output_path, cached_png)
+        self._generated += 1
+        return output_path, True
+
+    def close(self):
+        """Shut down the browser and Playwright, log summary."""
+        if self._generated or self._cached:
+            log.info(
+                f"Social cards: {self._generated} generated, "
+                f"{self._cached} cached"
+            )
+        if self._page is not None:
+            self._page.close()
+            self._page = None
+        if self._browser is not None:
+            self._browser.close()
+            self._browser = None
+        if self._playwright is not None:
+            self._playwright.stop()
+            self._playwright = None
+
+
+# Keep the old function signature for backward compatibility
+def generate_card(
+    title: str,
+    description: str = "",
+    output_path: str | Path | None = None,
+) -> Path:
+    """Generate a social card image (standalone, launches its own browser)."""
+    renderer = CardRenderer()
+    try:
+        path, _ = renderer.generate(title, description, output_path)
+        return path
+    finally:
+        renderer.close()

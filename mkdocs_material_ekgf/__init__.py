@@ -6,7 +6,7 @@ from mkdocs.plugins import BasePlugin
 
 from .config import MaterialEkgfConfig
 
-__version__ = "0.0.23"
+__version__ = "0.0.24"
 __author__ = "Jacobus Geluk"
 __email__ = "jacobus.geluk@ekgf.org"
 __license__ = "CC BY-SA 4.0"
@@ -74,7 +74,7 @@ class MaterialEkgfPlugin(BasePlugin[MaterialEkgfConfig]):
             return markdown
 
         try:
-            from .social import generate_card
+            from .social import CardRenderer
         except ImportError:
             log.warning(
                 "Playwright not installed - social cards disabled. "
@@ -82,6 +82,10 @@ class MaterialEkgfPlugin(BasePlugin[MaterialEkgfConfig]):
             )
             self.config.social_cards = False
             return markdown
+
+        # Lazily create a shared renderer (one browser for the whole build)
+        if not hasattr(self, "_card_renderer"):
+            self._card_renderer = CardRenderer()
 
         # Get page title and description
         title = page.meta.get("title", page.title) if page.meta else page.title
@@ -97,10 +101,13 @@ class MaterialEkgfPlugin(BasePlugin[MaterialEkgfConfig]):
         output_rel_path = posixpath.join(cards_dir, page_path)
         output_abs_path = os.path.join(config.site_dir, output_rel_path)
 
-        # Generate the card
+        # Generate the card (skips automatically if cached)
         try:
-            log.info(f"Generating social card: {page.file.src_path}")
-            generate_card(title, description, output_abs_path)
+            _, generated = self._card_renderer.generate(title, description, output_abs_path)
+            if generated:
+                log.info(f"Generating social card: {page.file.src_path}")
+            else:
+                log.debug(f"Social card cached: {page.file.src_path}")
 
             # Store the card path for injection in on_post_page
             if not hasattr(page, "meta") or page.meta is None:
@@ -111,6 +118,12 @@ class MaterialEkgfPlugin(BasePlugin[MaterialEkgfConfig]):
             log.error(f"Failed to generate social card for {page.file.src_path}: {e}")
 
         return markdown
+
+    def on_post_build(self, *, config):
+        """Clean up the shared card renderer."""
+        if hasattr(self, "_card_renderer"):
+            self._card_renderer.close()
+            del self._card_renderer
 
     def on_post_page(self, output, *, page, config):
         """Inject social card meta tags into the page HTML."""
