@@ -11,7 +11,7 @@ authors = [
 ]
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.14.2"
+requires-python = ">=3.14.3"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -21,7 +21,7 @@ classifiers = [
   "Topic :: Software Development :: Documentation",
 ]
 dependencies = [
-  "mkdocs>=1.5.0",
+  "mkdocs>=1.5.0,<2",
   "mkdocs-material>=9.0.0",
 ]
 
@@ -33,13 +33,13 @@ Issues = "https://github.com/EKGF/mkdocs-material-ekgf/issues"
 
 [project.optional-dependencies]
 dev = [
-  "ruff>=0.8.0",
+  "ruff>=0.15.1",
   "mypy>=1.11.0",
   "pytest>=8.3.0",
   "twine>=5.0.0",
 ]
 social = [
-  "playwright>=1.40.0",
+  "playwright>=1.58.0",
 ]
 
 [project.entry-points."mkdocs.themes"]

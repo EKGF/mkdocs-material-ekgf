@@ -1,5 +1,5 @@
 VIRTUAL_ENV := ./.venv
-PYTHON_VERSION := 3.14.2
+PYTHON_VERSION := 3.14.3
 UV := uv
 
 # OS detection

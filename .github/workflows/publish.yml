@@ -44,7 +44,7 @@ jobs:
 
       - name: Install uv
         if: steps.check_version.outputs.new_version == 'true'
-        run: pip install uv
+        uses: astral-sh/setup-uv@v7
 
       - name: Build package
         if: steps.check_version.outputs.new_version == 'true'
